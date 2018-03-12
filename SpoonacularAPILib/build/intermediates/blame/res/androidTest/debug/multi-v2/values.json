@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\linuxss\\SoftwareLab\\groceryLIST\\SpoonacularAPILib\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+            "map": [
+                {
+                    "source": "C:\\linuxss\\SoftwareLab\\groceryLIST\\SpoonacularAPILib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,107",
+                        "endColumns": "51,68",
+                        "endOffsets": "102,171"
+                    }
+                }
+            ]
+        }
+    ]
+}
