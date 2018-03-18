@@ -4,26 +4,34 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
 
-    private TextView mNameView, mAgeView;
+    private ListView mUserList;
+
+    private List<String> mUserNames = new ArrayList<>();
+    private List<String> mKeys = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +39,50 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mNameView = (TextView) findViewById(R.id.name_display);
-        mAgeView = (TextView) findViewById(R.id.age_display);
 
-        mDatabase.child("Name").addValueEventListener(new ValueEventListener() {
+        mUserList = (ListView) findViewById(R.id.user_list);
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mUserNames);
+
+        mUserList.setAdapter(arrayAdapter);
+
+        mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                String name = dataSnapshot.getValue().toString();
+                String value = dataSnapshot.getValue(String.class);
 
-                mNameView.setText("Name: " + name);
+                mUserNames.add(value);
+
+                String key = dataSnapshot.getKey();
+                mKeys.add(key);
+
+                arrayAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                String value = dataSnapshot.getValue(String.class);
+
+                String key = dataSnapshot.getKey();
+
+                int index = mKeys.indexOf(key);
+
+                mUserNames.set(index, value);
+
+                arrayAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
             }
 
@@ -49,22 +91,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        mDatabase.child("Age").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                String age = dataSnapshot.getValue().toString();
-
-                mAgeView.setText("Age: " + age);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
     }
 }
