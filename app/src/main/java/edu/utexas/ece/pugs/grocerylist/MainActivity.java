@@ -1,95 +1,40 @@
 package edu.utexas.ece.pugs.grocerylist;
 
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DatabaseReference mDatabase;
-
-    private ListView mUserList;
-
-    private List<String> mUserNames = new ArrayList<>();
-    private List<String> mKeys = new ArrayList<>();
+    private FirebaseAuth mAuth;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        //FirebaseAuth.getInstance().signOut();
 
-        mUserList = (ListView) findViewById(R.id.user_list);
+        mAuth = FirebaseAuth.getInstance();
 
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mUserNames);
+    }
 
-        mUserList.setAdapter(arrayAdapter);
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-        mDatabase.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
-                String value = dataSnapshot.getValue(String.class);
+        if (currentUser == null) {
+            Intent startIntent = new Intent(MainActivity.this, StartActivity.class);
+            startActivity(startIntent);
+            finish();
+        }
 
-                mUserNames.add(value);
-
-                String key = dataSnapshot.getKey();
-                mKeys.add(key);
-
-                arrayAdapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                String value = dataSnapshot.getValue(String.class);
-
-                String key = dataSnapshot.getKey();
-
-                int index = mKeys.indexOf(key);
-
-                mUserNames.set(index, value);
-
-                arrayAdapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 }
