@@ -22,4 +22,5 @@
     <string name="i_need_new_account">I NEED NEW ACCOUNT</string>
     <string name="prompt_display_name">Display Name</string>
     <string name="create_account">Create Account</string>
+    <string name="log_out">Log Out</string>
 </resources>
