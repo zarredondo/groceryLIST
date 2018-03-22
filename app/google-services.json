@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "910781044490-hekp2ucghb31gjlpq6fqb30np2hspfld.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.utexas.ece.pugs.grocerylist",
+            "certificate_hash": "43577849e2c925d7ee6c4ab4e3ec5e7259032b90"
+          }
+        },
+        {
           "client_id": "910781044490-61nqbkrc677ccqksngkktlhbefvd8fun.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "910781044490-61nqbkrc677ccqksngkktlhbefvd8fun.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
