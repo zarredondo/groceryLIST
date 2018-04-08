@@ -1,3 +1,0 @@
-com.mashape.p.spoonacularrecipefoodnutritionv1.test
-int string app_name 0x7f010000
-int string preference_file_key 0x7f010001
