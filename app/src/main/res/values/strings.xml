@@ -23,4 +23,6 @@
     <string name="prompt_display_name">Display Name</string>
     <string name="create_account">Create Account</string>
     <string name="log_out">Log Out</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="welcome_to_grocerylist">Welcome to groceryLIST</string>
 </resources>

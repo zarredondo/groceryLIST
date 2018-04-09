@@ -21,7 +21,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText mDisplayName, mEmail, mPassword;
     private Button mCreateBtn;
+    private Button mSignOutBtn;
     private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         mPassword = (EditText) findViewById(R.id.reg_password);
 
         mCreateBtn = (Button) findViewById(R.id.reg_create_btn);
+        mSignOutBtn = (Button) findViewById(R.id.sign_out_btn);
 
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +54,13 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
+
+        mSignOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+            }
+        });
     }
 
     private void registerUser(String displayName, String email, String password) {
@@ -61,8 +71,8 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            //Log.d("success", "createUserWithEmail:success");
-                            //FirebaseUser user = mAuth.getCurrentUser();
+                            Log.d("success", "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
 
                             Toast.makeText(RegisterActivity.this, "Authentication successful.",
                                     Toast.LENGTH_SHORT).show();
