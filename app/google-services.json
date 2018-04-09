@@ -8,6 +8,50 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:910781044490:android:3e0c98bd7183ac82",
+        "android_client_info": {
+          "package_name": "com.pugs.grocerylist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "910781044490-ahtjccl4o1m5q218ksofklgqdlj67maf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pugs.grocerylist",
+            "certificate_hash": "43577849e2c925d7ee6c4ab4e3ec5e7259032b90"
+          }
+        },
+        {
+          "client_id": "910781044490-61nqbkrc677ccqksngkktlhbefvd8fun.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXxFgWc_HU0mK-Tpndhka_31P0SV3CMXo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "910781044490-61nqbkrc677ccqksngkktlhbefvd8fun.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:910781044490:android:86bddf7fb08ace59",
         "android_client_info": {
           "package_name": "edu.utexas.ece.pugs.grocerylist"
