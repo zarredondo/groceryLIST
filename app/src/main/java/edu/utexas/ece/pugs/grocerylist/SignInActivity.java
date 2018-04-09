@@ -19,31 +19,31 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private EditText mEmail2, mPassword2;
-    private Button mCreateBtn2;
+    private EditText mEmail, mPassword;
+    private Button mCreateBtn;
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_sign_in);
 
         // Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
         // Registration Fields
 
-        mEmail2 = (EditText) findViewById(R.id.sign_in_email);
-        mPassword2 = (EditText) findViewById(R.id.sign_in_password);
+        mEmail = (EditText) findViewById(R.id.sign_in_email);
+        mPassword = (EditText) findViewById(R.id.sign_in_password);
 
-        mCreateBtn2 = (Button) findViewById(R.id.sign_in_btn);
+        mCreateBtn = (Button) findViewById(R.id.sign_in_btn);
 
-        mCreateBtn2.setOnClickListener(new View.OnClickListener() {
+        mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String email = mEmail2.getText().toString();
-                String password = mPassword2.getText().toString();
+                String email = mEmail.getText().toString();
+                String password = mPassword.getText().toString();
 
                 signInUser(email, password);
 
@@ -63,6 +63,12 @@ public class SignInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Success", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            Intent mainIntent = new Intent(SignInActivity.this, MainActivity.class);
+                            startActivity(mainIntent);
+
+                            finish();
+
 
                         } else {
                             // If sign in fails, display a message to the user.
