@@ -1,7 +1,6 @@
 package edu.utexas.ece.pugs.grocerylist;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,82 +16,71 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class RegisterActivity extends AppCompatActivity {
 
-    private EditText mDisplayName, mEmail, mPassword;
+public class SignInActivity extends AppCompatActivity {
+
+    private EditText mEmail, mPassword;
     private Button mCreateBtn;
-    private Button mSignOutBtn;
     private FirebaseAuth mAuth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_sign_in);
 
         // Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
         // Registration Fields
 
-        mDisplayName = (EditText) findViewById(R.id.reg_display_name);
-        mEmail = (EditText) findViewById(R.id.reg_email);
-        mPassword = (EditText) findViewById(R.id.reg_password);
+        mEmail = (EditText) findViewById(R.id.sign_in_email);
+        mPassword = (EditText) findViewById(R.id.sign_in_password);
 
-        mCreateBtn = (Button) findViewById(R.id.reg_create_btn);
-        mSignOutBtn = (Button) findViewById(R.id.sign_out_btn);
+        mCreateBtn = (Button) findViewById(R.id.sign_in_btn);
 
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String displayName = mDisplayName.getText().toString();
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
 
-                registerUser(displayName, email, password);
+                signInUser(email, password);
 
             }
         });
 
-        mSignOutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-            }
-        });
+
     }
 
-    private void registerUser(String displayName, String email, String password) {
+    private void signInUser(String email, String password) {
 
-        mAuth.createUserWithEmailAndPassword(email, password)
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
-                            Log.d("success", "createUserWithEmail:success");
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("Success", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            Toast.makeText(RegisterActivity.this, "Authentication successful.",
-                                    Toast.LENGTH_SHORT).show();
-
-                            Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
+                            Intent mainIntent = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(mainIntent);
 
                             finish();
 
 
                         } else {
-
-                            //Log.w("failure", "createUserWithEmail:failure", task.getException());
-
-                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                            // If sign in fails, display a message to the user.
+                            Log.w("Authentication failed.", "signInWithEmail:failure", task.getException());
+                            Toast.makeText(SignInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+
                         }
 
+                        // ...
                     }
                 });
-
     }
 }
+
