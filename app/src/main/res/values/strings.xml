@@ -25,4 +25,7 @@
     <string name="log_out">Log Out</string>
     <string name="sign_in">SIGN IN</string>
     <string name="welcome_to_grocerylist">Welcome to groceryLIST</string>
+    <string name="pantry">Pantry</string>
+    <string name="grocerylist">groceryLIST</string>
+    <string name="recipes">Recipes</string>
 </resources>

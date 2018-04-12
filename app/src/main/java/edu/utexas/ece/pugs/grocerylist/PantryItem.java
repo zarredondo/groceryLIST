@@ -1,6 +1,7 @@
 package edu.utexas.ece.pugs.grocerylist;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -9,15 +10,12 @@ import java.util.List;
 
 public class PantryItem {
     protected Food food;
-    protected List<Purchase> purchases;
+    protected Date purchaseDate;
+    protected Date expirationDate;
 
-    public PantryItem(Food food, Purchase purchase) {
+    public PantryItem(Food food, Date purchaseDate, Date expirationDate) {
         this.food = food;
-        purchases = new ArrayList<>();
-        purchases.add(purchase);
-    }
-
-    public void addPurchase(Purchase purchase) {
-        this.purchases.add(purchase);
+        this.purchaseDate = purchaseDate;
+        this.expirationDate = expirationDate;
     }
 }

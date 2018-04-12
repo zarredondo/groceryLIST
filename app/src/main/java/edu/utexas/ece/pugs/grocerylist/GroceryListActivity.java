@@ -19,12 +19,15 @@ public class GroceryListActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
+                    /*startActivity(ApplicationManager.getInstance().getIntents().get(0));*/
                     return true;
                 case R.id.navigation_dashboard:
                     mTextMessage.setText(R.string.title_dashboard);
+                    /*startActivity(ApplicationManager.getInstance().getIntents().get(1));*/
                     return true;
                 case R.id.navigation_notifications:
                     mTextMessage.setText(R.string.title_notifications);
+                    /*startActivity(ApplicationManager.getInstance().getIntents().get(2));*/
                     return true;
             }
             return false;

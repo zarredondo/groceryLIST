@@ -7,14 +7,11 @@ import java.util.Date;
  */
 
 public class ShoppingListItem {
-    protected String name;
-    protected Quantity quantity;
     protected Date addedDate;
     protected Date purchaseDate;
 
-    public ShoppingListItem(String name, Quantity quantity, Date addedDate) {
-        this.name = name;
-        this.quantity = quantity;
+    public ShoppingListItem(Date addedDate, Date purchaseDate) {
         this.addedDate = addedDate;
+        this.purchaseDate = purchaseDate;
     }
 }

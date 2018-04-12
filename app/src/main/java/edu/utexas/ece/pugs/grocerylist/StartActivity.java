@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StartActivity extends AppCompatActivity {
 
     private Button mRegBtn;
@@ -15,6 +18,15 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        /*while (ApplicationManager.getInstance() == null) {
+
+        }
+
+        ApplicationManager.getInstance().addIntent(new Intent(StartActivity.this, PantryActivity.class));
+        ApplicationManager.getInstance().addIntent(new Intent(StartActivity.this, GroceryListActivity.class));
+        ApplicationManager.getInstance().addIntent(new Intent(StartActivity.this, RecipeActivity.class));*/
+
 
         mRegBtn = (Button) findViewById(R.id.start_reg_btn);
         mSignInBtn = (Button) findViewById(R.id.start_sign_in_btn);
@@ -39,4 +51,6 @@ public class StartActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

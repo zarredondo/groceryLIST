@@ -8,15 +8,16 @@ import java.util.Date;
  */
 
 public class ListFoodItem extends ShoppingListItem {
+    protected Food food;
     protected Date expirationDate;
 
-
-    public ListFoodItem(String name, Quantity quantity, Date addedDate, Date expirationDate) {
-        super(name, quantity, addedDate);
+    public ListFoodItem(Food food, Date addedDate, Date purchaseDate, Date expirationDate) {
+        super(addedDate, purchaseDate);
+        this.food = food;
         this.expirationDate = expirationDate;
     }
 
-    public Purchase generatePurchase() {
-        return new Purchase(quantity, Calendar.getInstance().getTime(), expirationDate);
+    public PantryItem generatePantryItem() {
+        return new PantryItem(food, Calendar.getInstance().getTime(), expirationDate);
     }
 }
