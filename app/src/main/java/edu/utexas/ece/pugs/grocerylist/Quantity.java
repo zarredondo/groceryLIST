@@ -11,6 +11,10 @@ public class Quantity {
     protected String unitLong;
 
     /* Constructor */
+
+    public Quantity() {
+    }
+
     public Quantity(String amount, String unit, String unitShort, String unitLong) {
         this.amount = amount;
         this.unit = unit;

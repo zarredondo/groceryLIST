@@ -13,6 +13,9 @@ public class PantryItem {
     protected Date purchaseDate;
     protected Date expirationDate;
 
+    public PantryItem() {   
+    }
+
     public PantryItem(Food food, Date purchaseDate, Date expirationDate) {
         this.food = food;
         this.purchaseDate = purchaseDate;

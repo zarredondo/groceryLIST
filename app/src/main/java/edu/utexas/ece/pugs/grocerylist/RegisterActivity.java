@@ -16,13 +16,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     private EditText mDisplayName, mEmail, mPassword;
     private Button mCreateBtn;
     private Button mSignOutBtn;
-    private FirebaseAuth mAuth;
 
 
     @Override
@@ -32,6 +36,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+
+        // Firebase Database
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
 
         // Registration Fields
 
@@ -63,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String displayName, String email, String password) {
+    private void registerUser(final String displayName, final String email, String password) {
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -72,12 +80,17 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             Log.d("success", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                            User user = new User(email, displayName);
+
+                            mDatabase.child("users").child(firebaseUser.getUid()).setValue(user);
+
 
                             Toast.makeText(RegisterActivity.this, "Authentication successful.",
                                     Toast.LENGTH_SHORT).show();
 
-                            Intent mainIntent = new Intent(RegisterActivity.this, GroceryListActivity.class);
+                            Intent mainIntent = new Intent(RegisterActivity.this, AddToPantryActivity.class);
                             startActivity(mainIntent);
 
                             finish();

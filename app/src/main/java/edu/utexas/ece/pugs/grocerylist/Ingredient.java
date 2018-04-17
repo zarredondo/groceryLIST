@@ -13,6 +13,9 @@ public class Ingredient {
         this.quantity = quantity;
     }
 
+    public Ingredient() {
+    }
+
     public Food getFood() {
         return food;
     }

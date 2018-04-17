@@ -7,8 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class GroceryListActivity extends AppCompatActivity {
+import com.fasterxml.jackson.databind.MapperFeature;
 
+import org.json.JSONException;
+
+public class GroceryListActivity extends AppCompatActivity {
+    Food food;
+    Quantity quantity;
+    Ingredient ingredient;
     private TextView mTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -18,7 +24,16 @@ public class GroceryListActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    /*mTextMessage.setText(R.string.title_home);*/
+                    food = new Food(23, "Banana");
+                    quantity = new Quantity("3", "oz", "oz", "ounces");
+                    ingredient = new Ingredient(food, quantity);
+
+                    try {
+                        mTextMessage.setText(JSONMapperUtility.getInstance().convertIngredient(ingredient));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     /*startActivity(ApplicationManager.getInstance().getIntents().get(0));*/
                     return true;
                 case R.id.navigation_dashboard:
