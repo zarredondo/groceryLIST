@@ -48,12 +48,12 @@ public class AddToPantryActivity extends AppCompatActivity {
         fireBaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Food food = new Food(Integer.parseInt(idEditText.getText().toString()),
+                Food food = new Food(Integer.parseInt(idEditText.getText().toString()),
                         nameEditText.getText().toString());
                 Quantity quantity = new Quantity(amountEditText.getText().toString(),
                         unitEditText.getText().toString(), unitEditText.getText().toString(),
                         unitEditText.getText().toString());
-                Ingredient ingredient = new Ingredient(food, quantity);*/
+                Ingredient ingredient = new Ingredient(food, quantity);
                 testFood1 = new Food(6901, "lime");
                 testQuantity = new Quantity("5", "pieces", "pc", "pieces");
                 testIngredient = new Ingredient(testFood1, testQuantity);
