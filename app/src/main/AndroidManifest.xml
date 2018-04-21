@@ -25,7 +25,11 @@
             android:name=".GroceryListActivity"
             android:label="@string/title_activity_grocery_list" />
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".RecipeActivity" />
         <activity android:name=".RecipeDetailsActivity" />
@@ -35,11 +39,7 @@
 
         </activity>
         <activity android:name=".AddToPantryActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

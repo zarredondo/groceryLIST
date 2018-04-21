@@ -67,7 +67,7 @@ public class AddToPantryActivity extends AppCompatActivity {
                 landry.addPurchase(newPurchase);
                 landry.addPurchase(newPurchase2);
                 //mDatabase.child("test").setValue(newPurchase);
-                mDatabase.child("test5").setValue(landry.getPantryItems());
+                mDatabase.child("test6").setValue(landry);
 
             }
         });

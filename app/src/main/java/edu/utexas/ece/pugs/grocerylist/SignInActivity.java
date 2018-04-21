@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.List;
 import java.util.Map;
 
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
@@ -37,8 +38,7 @@ public class SignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private android.support.v7.widget.Toolbar mToolbar;
-    private ValueEventListener valueEventListener;
-
+    private Map<String, PantryItem> pantryItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,7 @@ public class SignInActivity extends AppCompatActivity {
         // Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("hi");
 
         // Registration Fields
 
@@ -71,17 +70,17 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        valueEventListener = new ValueEventListener() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Pantry.getInstance().setPantryItems(dataSnapshot.getValue(Map.class));
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        };
+        });
     }
 
     @Override
@@ -111,11 +110,8 @@ public class SignInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Success", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
-                            Intent mainIntent = new Intent(SignInActivity.this, AddToPantryActivity.class);
+                            Intent mainIntent = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(mainIntent);
-
-
 
                             finish();
 
