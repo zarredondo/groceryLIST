@@ -1,15 +1,17 @@
 package edu.utexas.ece.pugs.grocerylist;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,6 +21,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import edu.utexas.ece.pugs.grocerylist.foodstuff.User;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -26,7 +30,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText mDisplayName, mEmail, mPassword;
     private Button mCreateBtn;
-    private Button mSignOutBtn;
+
+    private android.support.v7.widget.Toolbar mToolbar;
 
 
     @Override
@@ -40,15 +45,16 @@ public class RegisterActivity extends AppCompatActivity {
         // Firebase Database
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-
         // Registration Fields
-
         mDisplayName = (EditText) findViewById(R.id.reg_display_name);
         mEmail = (EditText) findViewById(R.id.reg_email);
         mPassword = (EditText) findViewById(R.id.reg_password);
 
+        /*mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.register_toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("groceryLIST");
+*/
         mCreateBtn = (Button) findViewById(R.id.reg_create_btn);
-        mSignOutBtn = (Button) findViewById(R.id.sign_out_btn);
 
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,16 +69,27 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        mSignOutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-            }
-        });
+
     }
 
-    private void registerUser(final String displayName, final String email, String password) {
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.main_logout_btn) {
+            mAuth.signOut();
+            sendToStart();
+        }
+        return true;
+    }*/
+
+    private void registerUser(final String displayName, final String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -90,22 +107,26 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, "Authentication successful.",
                                     Toast.LENGTH_SHORT).show();
 
-                            Intent mainIntent = new Intent(RegisterActivity.this, AddToPantryActivity.class);
+                            Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
                             startActivity(mainIntent);
-
                             finish();
 
-
                         } else {
-
                             //Log.w("failure", "createUserWithEmail:failure", task.getException());
 
                             Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
 
     }
+
+    /*private void sendToStart() {
+
+        Intent startIntent = new Intent(RegisterActivity.this, StartActivity.class);
+        startActivity(startIntent);
+        finish();
+
+    }*/
 }

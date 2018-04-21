@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -17,8 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ListView;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Recipe;
 
 /**
  * Created by Brandon on 3/16/2018.

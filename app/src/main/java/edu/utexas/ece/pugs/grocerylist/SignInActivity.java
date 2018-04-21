@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignInActivity extends AppCompatActivity {
 
     private EditText mEmail, mPassword;
-    private Button mCreateBtn;
+    private Button mSignInButton;
     private FirebaseAuth mAuth;
 
     @Override
@@ -36,9 +36,9 @@ public class SignInActivity extends AppCompatActivity {
         mEmail = (EditText) findViewById(R.id.sign_in_email);
         mPassword = (EditText) findViewById(R.id.sign_in_password);
 
-        mCreateBtn = (Button) findViewById(R.id.sign_in_btn);
+        mSignInButton = (Button) findViewById(R.id.sign_in_btn);
 
-        mCreateBtn.setOnClickListener(new View.OnClickListener() {
+        mSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -64,7 +64,7 @@ public class SignInActivity extends AppCompatActivity {
                             Log.d("Success", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            Intent mainIntent = new Intent(SignInActivity.this, AddToPantryActivity.class);
+                            Intent mainIntent = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(mainIntent);
 
                             finish();

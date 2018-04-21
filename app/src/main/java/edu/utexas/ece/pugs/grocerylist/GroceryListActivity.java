@@ -7,12 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.fasterxml.jackson.databind.MapperFeature;
-
 import org.json.JSONException;
 
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Ingredient;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Quantity;
+
 public class GroceryListActivity extends AppCompatActivity {
-    Food food;
     Quantity quantity;
     Ingredient ingredient;
     private TextView mTextMessage;
@@ -24,25 +24,13 @@ public class GroceryListActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    /*mTextMessage.setText(R.string.title_home);*/
-                    food = new Food(23, "Banana");
-                    quantity = new Quantity("3", "oz", "oz", "ounces");
-                    ingredient = new Ingredient(food, quantity);
-
-                    try {
-                        mTextMessage.setText(JSONMapperUtility.getInstance().convertIngredient(ingredient));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    /*startActivity(ApplicationManager.getInstance().getIntents().get(0));*/
+                    mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
                     mTextMessage.setText(R.string.title_dashboard);
-                    /*startActivity(ApplicationManager.getInstance().getIntents().get(1));*/
                     return true;
                 case R.id.navigation_notifications:
                     mTextMessage.setText(R.string.title_notifications);
-                    /*startActivity(ApplicationManager.getInstance().getIntents().get(2));*/
                     return true;
             }
             return false;

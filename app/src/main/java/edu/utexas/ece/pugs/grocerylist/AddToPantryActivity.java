@@ -11,7 +11,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Calendar;
+import java.util.Date;
+
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Ingredient;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.PantryItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Purchase;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Quantity;
 
 public class AddToPantryActivity extends AppCompatActivity {
     DatabaseReference mDatabase;
@@ -24,7 +30,6 @@ public class AddToPantryActivity extends AppCompatActivity {
     EditText unitEditText;
     Button fireBaseButton;
 
-    Food testFood1;
     Quantity testQuantity;
     Ingredient testIngredient;
     PantryItem testPantryItem;
@@ -48,7 +53,15 @@ public class AddToPantryActivity extends AppCompatActivity {
         fireBaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Food food = new Food(Integer.parseInt(idEditText.getText().toString()),
+                Purchase newPurchase = new Purchase(420, "original", "pineapple",
+                        new Quantity("3", "oz", "oz", "ounces"), "hard",
+                        new String[] {"pieces", "ounces"}, "produce", "pineapple.jpg", null,
+                        new Date());
+
+                Pantry.getInstance().addPurchase(newPurchase);
+
+                mDatabase.child("pantry").child(mUser.getUid()).setValue(Pantry.getInstance().getPantryItems());
+                /*Food food = new Food(Integer.parseInt(idEditText.getText().toString()),
                         nameEditText.getText().toString());
                 Quantity quantity = new Quantity(amountEditText.getText().toString(),
                         unitEditText.getText().toString(), unitEditText.getText().toString(),
@@ -60,7 +73,7 @@ public class AddToPantryActivity extends AppCompatActivity {
 
                 mDatabase.child("pantry items").child(mUser.getUid()).setValue(
                         new PantryItem(testFood1, Calendar.getInstance().getTime(),
-                                Calendar.getInstance().getTime()));
+                                Calendar.getInstance().getTime()));*/
 
                 //mDatabase.child("ingredient").setValue(testIngredient);
                 /*mDatabase.child("ingredient").child("food").setValue(testFood1);*/
