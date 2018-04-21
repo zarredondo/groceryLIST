@@ -1,26 +1,28 @@
 package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
+import java.util.List;
+
 /**
  * Created by zarredondo on 4/20/2018.
  */
 
 public class FoodItem {
-    int id;
+    String id;
     String original;
     String name;
     Quantity quantity;
     String consistency;
-    String[] shoppingListUnits;
+    List<String> shoppingListUnits;
     String aisle;
     String image;
-    String[] meta;
+    List<String> meta;
 
     public FoodItem() {
 
     }
 
-    public FoodItem(int id, String original, String name, Quantity quantity, String consistency,
-                    String[] shoppingListUnits, String aisle, String image, String[] meta) {
+    public FoodItem(String id, String original, String name, Quantity quantity, String consistency,
+                    List<String> shoppingListUnits, String aisle, String image, List<String> meta) {
         this.id = id;
         this.original = original;
         this.name = name;
@@ -32,11 +34,11 @@ public class FoodItem {
         this.meta = meta;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -72,11 +74,11 @@ public class FoodItem {
         this.consistency = consistency;
     }
 
-    public String[] getShoppingListUnits() {
+    public List<String> getShoppingListUnits() {
         return shoppingListUnits;
     }
 
-    public void setShoppingListUnits(String[] shoppingListUnits) {
+    public void setShoppingListUnits(List<String> shoppingListUnits) {
         this.shoppingListUnits = shoppingListUnits;
     }
 
@@ -96,11 +98,11 @@ public class FoodItem {
         this.image = image;
     }
 
-    public String[] getMeta() {
+    public List<String> getMeta() {
         return meta;
     }
 
-    public void setMeta(String[] meta) {
+    public void setMeta(List<String> meta) {
         this.meta = meta;
     }
 }

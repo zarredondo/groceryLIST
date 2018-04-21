@@ -1,5 +1,6 @@
 package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,6 +11,15 @@ public class PantryItem {
     List<Purchase> purchases;
 
     public PantryItem() {
+        purchases = new ArrayList<Purchase>();
+    }
+
+    public List<Purchase> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(List<Purchase> purchases) {
+        this.purchases = purchases;
     }
 
     public void addPurchase(Purchase purchase) {

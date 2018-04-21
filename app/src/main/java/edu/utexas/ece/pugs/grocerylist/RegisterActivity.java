@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -50,10 +49,10 @@ public class RegisterActivity extends AppCompatActivity {
         mEmail = (EditText) findViewById(R.id.reg_email);
         mPassword = (EditText) findViewById(R.id.reg_password);
 
-        /*mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.register_toolbar);
+        mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.register_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("groceryLIST");
-*/
+
         mCreateBtn = (Button) findViewById(R.id.reg_create_btn);
 
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -87,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
             sendToStart();
         }
         return true;
-    }*/
+    }
 
     private void registerUser(final String displayName, final String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -122,11 +121,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    /*private void sendToStart() {
+    private void sendToStart() {
 
         Intent startIntent = new Intent(RegisterActivity.this, StartActivity.class);
         startActivity(startIntent);
         finish();
 
-    }*/
+    }
 }

@@ -1,7 +1,12 @@
 package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
+import android.support.annotation.NonNull;
+
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by zarredondo on 4/11/2018.
@@ -10,20 +15,21 @@ import java.util.Map;
 public class Pantry {
     private static Pantry instance = new Pantry();
 
-    private Map<Integer, PantryItem> pantryItems;
+    private Map<String, PantryItem> pantryItems;
 
     private Pantry() {
+        pantryItems = new HashMap<String, PantryItem>();
     }
 
     public static Pantry getInstance() {
         return instance;
     }
 
-    public Map<Integer, PantryItem> getPantryItems() {
+    public Map<String, PantryItem> getPantryItems() {
         return pantryItems;
     }
 
-    public void setPantryItems(Map<Integer, PantryItem> pantryItems) {
+    public void setPantryItems(Map<String, PantryItem> pantryItems) {
         this.pantryItems = pantryItems;
     }
 
