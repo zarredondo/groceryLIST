@@ -9,21 +9,21 @@ import java.util.List;
 
 public class RecipeList {
     private static RecipeList uniqueInstance = new RecipeList();
-    private List<Recipe> recipes;
+    private List<Recipe> RecipeList;
 
     private RecipeList() {
-        this.recipes = new ArrayList<>();
+        this.RecipeList = new ArrayList<>();
     }
 
     public static RecipeList getInstance() {
         return uniqueInstance;
     }
 
-    public void setRecipes(List<Recipe> recipes) {
-        this.recipes = recipes;
+    public void setRecipeList(List<Recipe> recipes) {
+        this.RecipeList = recipes;
     }
 
-    public List<Recipe> getRecipes() {
-        return recipes;
+    public List<Recipe> getRecipeList() {
+        return RecipeList;
     }
 }

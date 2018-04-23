@@ -14,6 +14,10 @@ public class Recipe {
     private String instructions;
     private List<String> ingredients = new ArrayList<>();
 
+    public Recipe() {
+
+    }
+
     public Recipe(String name, String percentage, String instructions, List<String> ingredients) {
         this.name = name;
         this.percentage = percentage;
@@ -35,6 +39,10 @@ public class Recipe {
 
     public String getInstructions() {
         return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
     }
 
     public List<String> getIngredients() {

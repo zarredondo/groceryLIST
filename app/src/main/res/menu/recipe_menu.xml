@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/findRecipesByPantry"
+        android:title="Recipes by Pantry"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:id="@+id/findRecipesByIngredients"
+        android:title="Recipes by Ingredients"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:id="@+id/findRecipesByName"
+        android:title="Recipes by Name"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:id="@+id/findRecipesByNutrients"
+        android:title="Recipes by Nutrients"
+        app:showAsAction="never">
+    </item>
+</menu>

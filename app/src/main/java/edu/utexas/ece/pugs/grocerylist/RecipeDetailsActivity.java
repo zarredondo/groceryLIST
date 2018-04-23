@@ -3,11 +3,14 @@ package edu.utexas.ece.pugs.grocerylist;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import java.util.List;
+
 /**
  * Created by Brandon on 3/17/2018.
  */
 
 public class RecipeDetailsActivity extends AppCompatActivity {
+    List<Recipe> recipeList = RecipeList.getInstance().getRecipeList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

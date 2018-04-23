@@ -6,10 +6,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/main_app_bar"
+        layout="@layout/app_bar_layout"
+        app:layout_constraintBottom_toTopOf="@+id/listView">
+    </include>
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true">
@@ -22,6 +29,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignBottom="@id/listView"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/navigation" />
 

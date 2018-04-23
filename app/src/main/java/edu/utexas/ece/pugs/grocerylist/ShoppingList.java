@@ -13,7 +13,7 @@ public class ShoppingList {
         this.listItems = listItems;
     }
 
-    public List<PantryItem> getPantryItems() {
+    public List<ShoppingListItem> getShoppingListItems() {
         return listItems;
     }
 }
