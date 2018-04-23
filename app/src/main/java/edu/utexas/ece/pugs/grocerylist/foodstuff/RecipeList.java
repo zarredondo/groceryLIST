@@ -9,7 +9,12 @@ import java.util.List;
 
 public class RecipeList {
     private static RecipeList uniqueInstance = new RecipeList();
+
     private List<Recipe> recipes;
+
+    public static RecipeList getUniqueInstance() {
+        return uniqueInstance;
+    }
 
     private RecipeList() {
         this.recipes = new ArrayList<>();

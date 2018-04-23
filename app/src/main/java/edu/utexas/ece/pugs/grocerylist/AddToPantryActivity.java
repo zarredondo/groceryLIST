@@ -63,11 +63,11 @@ public class AddToPantryActivity extends AppCompatActivity {
                         arrayList, "produce", "pineapple.jpg", arrayList, new Date());
                 Quantity quantity = new Quantity("a", "b", "c", "d");
 
-                landry = Pantry.getInstance();
-                landry.addPurchase(newPurchase);
-                landry.addPurchase(newPurchase2);
+                //landry = new Pantry();
+                //landry.addPurchase(newPurchase);
+                //landry.addPurchase(newPurchase2);
                 //mDatabase.child("test").setValue(newPurchase);
-                mDatabase.child("test6").setValue(landry);
+                //mDatabase.child("test6").setValue(landry);
 
             }
         });

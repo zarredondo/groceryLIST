@@ -2,6 +2,7 @@ package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Set;
  */
 
 public class Pantry {
-    private static Pantry instance = new Pantry();
+    private static Pantry uniqueInstance = new Pantry();
 
     private Map<String, PantryItem> pantryItems;
 
@@ -21,11 +22,7 @@ public class Pantry {
         pantryItems = new HashMap<String, PantryItem>();
     }
 
-    public static Pantry getInstance() {
-        return instance;
-    }
-
-    public Map<String, PantryItem> getPantryItems() {
+    private Map<String, PantryItem> getPantryItems() {
         return pantryItems;
     }
 

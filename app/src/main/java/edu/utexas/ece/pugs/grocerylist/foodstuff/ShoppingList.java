@@ -10,13 +10,32 @@ import edu.utexas.ece.pugs.grocerylist.foodstuff.ListNonFoodItem;
  */
 
 public class ShoppingList {
-    List<ListFoodItem> listFoodItems;
-    List<ListNonFoodItem> nonFoodItems;
+    private static ShoppingList uniqueInstance = new ShoppingList();
 
-    public ShoppingList(List<ListFoodItem> listItems) {
-        this.listFoodItems = listItems;
+    private List<ListFoodItem> listFoodItems;
+    private List<ListNonFoodItem> nonFoodItems;
+
+    public ShoppingList() {
+
     }
 
+    public static ShoppingList getInstance() {
+        return uniqueInstance;
+    }
 
+    public List<ListFoodItem> getListFoodItems() {
+        return listFoodItems;
+    }
 
+    public void setListFoodItems(List<ListFoodItem> listFoodItems) {
+        this.listFoodItems = listFoodItems;
+    }
+
+    public List<ListNonFoodItem> getNonFoodItems() {
+        return nonFoodItems;
+    }
+
+    public void setNonFoodItems(List<ListNonFoodItem> nonFoodItems) {
+        this.nonFoodItems = nonFoodItems;
+    }
 }

@@ -18,13 +18,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Map;
+
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.PantryItem;
+
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private Toolbar mToolbar;
     private TextView mTextView;
-
+    private Pantry pantry;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -44,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                mTextView.setText("wiliam");
                 mTextView.setText(dataSnapshot.child("hi").getValue(String.class));
+                pantry = dataSnapshot.child("test6").getValue(Pantry.class);
             }
 
             @Override
