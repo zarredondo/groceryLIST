@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ListView;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 
@@ -29,6 +29,8 @@ import com.mashape.p.spoonacularrecipefoodnutritionv1.http.client.APICallBack;
 import com.mashape.p.spoonacularrecipefoodnutritionv1.http.client.HttpContext;
 import com.mashape.p.spoonacularrecipefoodnutritionv1.models.DynamicResponse;
 import com.mashape.p.spoonacularrecipefoodnutritionv1.models.FindByIngredientsModel;
+
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Recipe;
 
 /**
  * Created by Brandon on 3/16/2018.

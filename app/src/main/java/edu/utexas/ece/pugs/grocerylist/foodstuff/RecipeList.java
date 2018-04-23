@@ -1,4 +1,4 @@
-package edu.utexas.ece.pugs.grocerylist;
+package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,11 @@ import java.util.List;
 
 public class RecipeList {
     private static RecipeList uniqueInstance = new RecipeList();
-    private List<Recipe> RecipeList;
+    private List<Recipe> recipes;
+
+    public static RecipeList getUniqueInstance() {
+        return uniqueInstance;
+    }
 
     private RecipeList() {
         this.RecipeList = new ArrayList<>();

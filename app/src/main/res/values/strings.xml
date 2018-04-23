@@ -28,4 +28,8 @@
     <string name="pantry">Pantry</string>
     <string name="grocerylist">groceryLIST</string>
     <string name="recipes">Recipes</string>
+    <string name="unit">Unit</string>
+    <string name="amount">Amount</string>
+    <string name="id">ID</string>
+    <string name="food_name">Food Name</string>
 </resources>

@@ -1,4 +1,4 @@
-package edu.utexas.ece.pugs.grocerylist;
+package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
 import java.util.Date;
 
@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by zarredondo on 4/11/2018.
  */
 
-public class ListNonFoodItem extends ShoppingListItem {
+public class ListNonFoodItem extends ListFoodItem {
     protected String name;
     protected Quantity quantity;
 

@@ -7,17 +7,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Map;
+
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.PantryItem;
 
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-
+    private DatabaseReference mDatabase;
     private Toolbar mToolbar;
-
+    private TextView mTextView;
+    private Pantry pantry;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -30,6 +42,22 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("groceryLIST");
 
+        mTextView = (TextView) findViewById(R.id.main_page_textview);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mTextView.setText(dataSnapshot.child("hi").getValue(String.class));
+                pantry = dataSnapshot.child("test6").getValue(Pantry.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -51,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         Intent startIntent = new Intent(MainActivity.this, StartActivity.class);
         startActivity(startIntent);
         finish();
-
 
     }
 

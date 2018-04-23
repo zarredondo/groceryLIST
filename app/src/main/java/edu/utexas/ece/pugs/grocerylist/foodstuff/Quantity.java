@@ -1,4 +1,4 @@
-package edu.utexas.ece.pugs.grocerylist;
+package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
 /**
  * Created by zarredondo on 4/11/2018.
@@ -11,6 +11,9 @@ public class Quantity {
     protected String unitLong;
 
     /* Constructor */
+    public Quantity() {
+    }
+
     public Quantity(String amount, String unit, String unitShort, String unitLong) {
         this.amount = amount;
         this.unit = unit;

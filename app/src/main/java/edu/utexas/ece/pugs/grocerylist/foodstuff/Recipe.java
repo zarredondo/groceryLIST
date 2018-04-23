@@ -1,4 +1,4 @@
-package edu.utexas.ece.pugs.grocerylist;
+package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
 import java.util.ArrayList;
 import java.util.List;
