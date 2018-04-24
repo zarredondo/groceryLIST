@@ -14,7 +14,7 @@ public class ShoppingList {
     private List<ShoppingListNonFoodItem> nonFoodItems;
 
     private ShoppingList() {
-        listFoodItems = new ArrayList<>();
+        shoppingListFoodItems = new ArrayList<>();
         nonFoodItems = new ArrayList<>();
     }
 
@@ -35,7 +35,7 @@ public class ShoppingList {
         return shoppingListFoodItems;
     }
 
-    public void setShoppingListFoodItems(ArrayList<ShoppingListFoodItem> shoppingListFoodItems) {
+    public void setShoppingListFoodItems(List<ShoppingListFoodItem> shoppingListFoodItems) {
         this.shoppingListFoodItems = shoppingListFoodItems;
     }
 
@@ -43,7 +43,7 @@ public class ShoppingList {
         return nonFoodItems;
     }
 
-    public void setNonFoodItems(ArrayList<ShoppingListNonFoodItem> nonFoodItems) {
+    public void setNonFoodItems(List<ShoppingListNonFoodItem> nonFoodItems) {
         this.nonFoodItems = nonFoodItems;
     }
 }

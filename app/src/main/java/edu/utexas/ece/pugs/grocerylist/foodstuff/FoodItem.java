@@ -33,9 +33,6 @@ public class FoodItem {
         }
         this.image = (String)itemEntry.get("image");
 
-
-
-
     }
 
     public FoodItem(String id, String original, String name, Quantity quantity, String consistency, String aisle, String image) {

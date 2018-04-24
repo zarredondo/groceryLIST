@@ -10,6 +10,10 @@ public class ShoppingListNonFoodItem {
     protected String name;
     protected Quantity quantity;
 
+    public ShoppingListNonFoodItem() {
+
+    }
+
     public ShoppingListNonFoodItem(String name, Quantity quantity) {
         this.name = name;
         this.quantity = quantity;

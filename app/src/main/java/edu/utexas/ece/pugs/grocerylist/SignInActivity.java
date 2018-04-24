@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.utexas.ece.pugs.grocerylist.foodstuff.ListFoodItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListFoodItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListNonFoodItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.PantryItem;
@@ -140,11 +140,11 @@ public class SignInActivity extends AppCompatActivity {
                             User.getInstance().getFoodItemListReference().addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    List<ListFoodItem> foodItems = (ArrayList<ListFoodItem>) dataSnapshot.getValue();
+                                    List<ShoppingListFoodItem> foodItems = (ArrayList<ShoppingListFoodItem>) dataSnapshot.getValue();
                                     if (foodItems == null) {
-                                        ShoppingList.getInstance().setListFoodItems(new ArrayList<ListFoodItem>());
+                                        ShoppingList.getInstance().setShoppingListFoodItems(new ArrayList<ShoppingListFoodItem>());
                                     } else {
-                                        ShoppingList.getInstance().setListFoodItems(foodItems);
+                                        ShoppingList.getInstance().setShoppingListFoodItems(foodItems);
                                     }
                                 }
 

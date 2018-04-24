@@ -16,10 +16,13 @@ public class ShoppingListFoodItem extends FoodItem {
     private Date purchaseDate;
     private Date expirationDate;
 
+    public ShoppingListFoodItem() {
+
+    }
+
     public ShoppingListFoodItem(String id, String original, String name, Quantity quantity, String consistency,
-                    List<String> shoppingListUnits, String aisle, String image, List<String> meta,
-                    Date expirationDate) {
-        super(id, original, name, quantity, consistency, shoppingListUnits, aisle, image, meta);
+                                String aisle, String image, Date expirationDate) {
+        super(id, original, name, quantity, consistency, aisle, image);
         this.expirationDate = expirationDate;
         this.addedDate = Calendar.getInstance().getTime();
     }
@@ -36,7 +39,6 @@ public class ShoppingListFoodItem extends FoodItem {
 	this.addedDate = addedDate;    
     }
 
-    
     public Date getPurchaseDate() {
         return purchaseDate;
     }
