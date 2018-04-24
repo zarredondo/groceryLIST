@@ -5,7 +5,7 @@ package edu.utexas.ece.pugs.grocerylist.foodstuff;
  */
 
 public class Quantity {
-    protected String amount;
+    protected int amount;
     protected String unit;
     protected String unitShort;
     protected String unitLong;
@@ -14,7 +14,7 @@ public class Quantity {
     public Quantity() {
     }
 
-    public Quantity(String amount, String unit, String unitShort, String unitLong) {
+    public Quantity(int amount, String unit, String unitShort, String unitLong) {
         this.amount = amount;
         this.unit = unit;
         this.unitShort = unitShort;
@@ -22,11 +22,11 @@ public class Quantity {
     }
 
     /* Getters and Setters */
-    public String getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 

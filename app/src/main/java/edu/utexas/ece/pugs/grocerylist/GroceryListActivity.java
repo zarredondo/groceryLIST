@@ -51,8 +51,8 @@ public class GroceryListActivity extends AppCompatActivity {
                 controller.getAutocompleteIngredientSearchAsync(name, findIngredientCallback);
                 Map<String, Object> itemEntry = findIngredientCallback.getResult();
 
-               // FoodItem food = new FoodItem(itemEntry);
-                //shoppingList.addItem(food);
+                FoodItem food = new FoodItem(itemEntry);
+                shoppingList.addItem(food);
             }
         });
  /*
