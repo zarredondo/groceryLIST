@@ -10,12 +10,13 @@ import edu.utexas.ece.pugs.grocerylist.foodstuff.FoodItem;
  * Created by zarredondo on 4/11/2018.
  */
 
-public class ListFoodItem extends FoodItem {
+
+public class ShoppingListFoodItem extends FoodItem {
     private Date addedDate;
     private Date purchaseDate;
     private Date expirationDate;
 
-    public ListFoodItem(String id, String original, String name, Quantity quantity, String consistency,
+    public ShoppingListFoodItem(String id, String original, String name, Quantity quantity, String consistency,
                     List<String> shoppingListUnits, String aisle, String image, List<String> meta,
                     Date expirationDate) {
         super(id, original, name, quantity, consistency, shoppingListUnits, aisle, image, meta);
@@ -23,15 +24,19 @@ public class ListFoodItem extends FoodItem {
         this.addedDate = Calendar.getInstance().getTime();
     }
 
+    public ShoppingListFoodItem(Date addedDate, Date purchaseDate) {
+        this.addedDate = addedDate;
+    }
 
     public Date getAddedDate() {
         return addedDate;
     }
 
     public void setAddedDate(Date addedDate) {
-        this.addedDate = addedDate;
+	this.addedDate = addedDate;    
     }
 
+    
     public Date getPurchaseDate() {
         return purchaseDate;
     }
