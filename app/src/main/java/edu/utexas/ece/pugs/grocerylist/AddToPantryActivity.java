@@ -17,6 +17,7 @@ import java.util.Date;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.FoodItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Ingredient;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.ListFoodItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.ListNonFoodItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.PantryItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Purchase;
@@ -66,14 +67,21 @@ public class AddToPantryActivity extends AppCompatActivity {
                 Purchase newPurchase1 = new Purchase(listFoodItem1);
                 Purchase newPurchase2 = new Purchase(listFoodItem2);
 
+                ListNonFoodItem listNonFoodItem1 = new ListNonFoodItem("batteries",
+                        new Quantity("3", "batteries", "batteries", "batteries"));
+                ListNonFoodItem listNonFoodItem2 = new ListNonFoodItem("hat",
+                        new Quantity("1", "articles", "articles", "articles"));
+
                 Pantry.getInstance().addPurchase(newPurchase1);
                 Pantry.getInstance().addPurchase(newPurchase2);
                 ShoppingList.getInstance().getListFoodItems().add(listFoodItem1);
                 ShoppingList.getInstance().getListFoodItems().add(listFoodItem2);
+                ShoppingList.getInstance().getNonFoodItems().add(listNonFoodItem1);
+                ShoppingList.getInstance().getNonFoodItems().add(listNonFoodItem2);
 
                 User.getInstance().getPantryReference().setValue(Pantry.getInstance().getPantryItems());
-                //User.getInstance().getShoppingListReference().setValue(ShoppingList.getInstance().getListFoodItems());
-
+                User.getInstance().getFoodItemListReference().setValue(ShoppingList.getInstance().getListFoodItems());
+                User.getInstance().getNonFoodItemListReference().setValue(ShoppingList.getInstance().getNonFoodItems());
             }
         });
     }

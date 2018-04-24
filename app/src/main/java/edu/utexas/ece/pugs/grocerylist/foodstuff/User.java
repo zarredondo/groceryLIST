@@ -16,6 +16,8 @@ public class User {
     private DatabaseReference firebaseReference;
     private DatabaseReference pantryReference;
     private DatabaseReference shoppingListReference;
+    private DatabaseReference nonFoodItemListReference;
+    private DatabaseReference FoodItemListReference;
 
     public static User getInstance() {
         return uniqueInstance;
@@ -28,36 +30,33 @@ public class User {
         this.userID = userID;
         this.emailAddress = emailAddress;
         this.displayName = displayName;
-        this.firebaseReference = FirebaseDatabase.getInstance().getReference();
-        this.pantryReference = firebaseReference.child("pantryMaps").child(userID);
-        this.shoppingListReference = firebaseReference.child("shoppingLists").child(userID);
-    }
+        this.updateDatabaseReferences();
 
-    public String getUserID() {
-        return userID;
     }
 
     public DatabaseReference getPantryReference() {
         return pantryReference;
     }
 
-    public void setPantryReference(DatabaseReference pantryReference) {
-        this.pantryReference = pantryReference;
-    }
-
     public DatabaseReference getShoppingListReference() {
         return shoppingListReference;
     }
 
-    public void setShoppingListReference(DatabaseReference shoppingListReference) {
-        this.shoppingListReference = shoppingListReference;
+    public DatabaseReference getNonFoodItemListReference() {
+        return nonFoodItemListReference;
+    }
+
+    public DatabaseReference getFoodItemListReference() {
+        return FoodItemListReference;
+    }
+
+    public String getUserID() {
+        return userID;
     }
 
     public void setUserID(String userID) {
         this.userID = userID;
-        this.firebaseReference = FirebaseDatabase.getInstance().getReference();
-        this.pantryReference = firebaseReference.child("pantryMaps").child(userID);
-        this.shoppingListReference = firebaseReference.child("shoppingLists").child(userID);
+        this.updateDatabaseReferences();
     }
 
     public String getEmailAddress() {
@@ -74,5 +73,13 @@ public class User {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    private void updateDatabaseReferences() {
+        this.firebaseReference = FirebaseDatabase.getInstance().getReference();
+        this.pantryReference = firebaseReference.child("pantryMaps").child(userID);
+        this.shoppingListReference = firebaseReference.child("shoppingLists").child(userID);
+        this.nonFoodItemListReference = shoppingListReference.child("nonFoodItemList");
+        this.FoodItemListReference = shoppingListReference.child("foodItemList");
     }
 }
