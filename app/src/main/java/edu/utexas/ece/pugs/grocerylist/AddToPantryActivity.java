@@ -16,10 +16,13 @@ import java.util.Date;
 
 import edu.utexas.ece.pugs.grocerylist.foodstuff.FoodItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Ingredient;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.ListFoodItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.PantryItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Purchase;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Quantity;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingList;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.User;
 
 public class AddToPantryActivity extends AppCompatActivity {
     DatabaseReference mDatabase;
@@ -31,8 +34,6 @@ public class AddToPantryActivity extends AppCompatActivity {
     EditText amountEditText;
     EditText unitEditText;
     Button fireBaseButton;
-
-    Pantry landry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,26 +49,30 @@ public class AddToPantryActivity extends AppCompatActivity {
         amountEditText = (EditText) findViewById(R.id.amount_edit_text);
         unitEditText = (EditText) findViewById(R.id.unit_edit_text);
         fireBaseButton = (Button) findViewById(R.id.add_to_firebase_button);
+
         final ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("mew"); arrayList.add("mewtwo");
 
         fireBaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Purchase newPurchase = new Purchase("69", "original", "pineapple",
+                ListFoodItem listFoodItem1 = new ListFoodItem("69", "original", "pineapple",
+                        new Quantity("3", "oz", "oz", "ounces"), "hard",
+                        arrayList, "produce", "pineapple.jpg", arrayList, new Date());
+                ListFoodItem listFoodItem2 = new ListFoodItem("420", "original", "pineapple",
                         new Quantity("3", "oz", "oz", "ounces"), "hard",
                         arrayList, "produce", "pineapple.jpg", arrayList, new Date());
 
-                Purchase newPurchase2 = new Purchase("420", "original", "pineapple",
-                        new Quantity("3", "oz", "oz", "ounces"), "hard",
-                        arrayList, "produce", "pineapple.jpg", arrayList, new Date());
-                Quantity quantity = new Quantity("a", "b", "c", "d");
+                Purchase newPurchase1 = new Purchase(listFoodItem1);
+                Purchase newPurchase2 = new Purchase(listFoodItem2);
 
-                //landry = new Pantry();
-                //landry.addPurchase(newPurchase);
-                //landry.addPurchase(newPurchase2);
-                //mDatabase.child("test").setValue(newPurchase);
-                //mDatabase.child("test6").setValue(landry);
+                Pantry.getInstance().addPurchase(newPurchase1);
+                Pantry.getInstance().addPurchase(newPurchase2);
+                ShoppingList.getInstance().getListFoodItems().add(listFoodItem1);
+                ShoppingList.getInstance().getListFoodItems().add(listFoodItem2);
+
+                User.getInstance().getPantryReference().setValue(Pantry.getInstance().getPantryItems());
+                //User.getInstance().getShoppingListReference().setValue(ShoppingList.getInstance().getListFoodItems());
 
             }
         });

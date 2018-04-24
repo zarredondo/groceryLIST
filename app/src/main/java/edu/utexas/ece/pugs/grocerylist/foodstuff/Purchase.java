@@ -23,6 +23,15 @@ public class Purchase extends FoodItem {
         this.purchaseDate = Calendar.getInstance().getTime();
     }
 
+    public Purchase(ListFoodItem listFoodItem) {
+        super(listFoodItem.getId(), listFoodItem.getOriginal(), listFoodItem.getName(),
+                listFoodItem.getQuantity(), listFoodItem.getConsistency(),
+                listFoodItem.getShoppingListUnits(), listFoodItem.getAisle(),
+                listFoodItem.getImage(), listFoodItem.getMeta());
+        this.expirationDate = listFoodItem.getExpirationDate();
+        this.purchaseDate = Calendar.getInstance().getTime();
+    }
+
     public Date getPurchaseDate() {
         return purchaseDate;
     }

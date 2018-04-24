@@ -24,11 +24,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.PantryItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.User;
 
 
 public class SignInActivity extends AppCompatActivity {
@@ -110,14 +112,33 @@ public class SignInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Success", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent mainIntent = new Intent(SignInActivity.this, MainActivity.class);
+                            Intent mainIntent = new Intent(SignInActivity.this, AddToPantryActivity.class);
+
+                            User.getInstance().setTriplet(user.getUid(), user.getEmail(), user.getDisplayName());
+
+                            User.getInstance().getPantryReference().addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    Map<String, PantryItem> map = (Map<String, PantryItem>) dataSnapshot.getValue();
+                                    if (map == null) {
+                                        Pantry.getInstance().setPantryItems(new HashMap<String, PantryItem>());
+                                    } else {
+                                        Pantry.getInstance().setPantryItems(map);
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
                             startActivity(mainIntent);
-
                             finish();
-
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("Authentication failed.", "signInWithEmail:failure", task.getException());
+                            /*Log.w("Authentication failed.", "signInWithEmail:failure", task.getException());*/
                             Toast.makeText(SignInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
 

@@ -1,5 +1,6 @@
 package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.utexas.ece.pugs.grocerylist.foodstuff.ListFoodItem;
@@ -15,8 +16,9 @@ public class ShoppingList {
     private List<ListFoodItem> listFoodItems;
     private List<ListNonFoodItem> nonFoodItems;
 
-    public ShoppingList() {
-
+    private ShoppingList() {
+        listFoodItems = new ArrayList<>();
+        nonFoodItems = new ArrayList<>();
     }
 
     public static ShoppingList getInstance() {
