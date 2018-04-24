@@ -6,11 +6,11 @@ import java.util.Date;
  * Created by zarredondo on 4/11/2018.
  */
 
-public class ListNonFoodItem {
+public class ShoppingListNonFoodItem {
     protected String name;
     protected Quantity quantity;
 
-    public ListNonFoodItem(String name, Quantity quantity) {
+    public ShoppingListNonFoodItem(String name, Quantity quantity) {
         this.name = name;
         this.quantity = quantity;
     }

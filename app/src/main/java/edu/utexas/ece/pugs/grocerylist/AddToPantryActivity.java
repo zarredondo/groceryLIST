@@ -14,12 +14,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Date;
 
-import edu.utexas.ece.pugs.grocerylist.foodstuff.FoodItem;
-import edu.utexas.ece.pugs.grocerylist.foodstuff.Ingredient;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.ListFoodItem;
-import edu.utexas.ece.pugs.grocerylist.foodstuff.ListNonFoodItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListNonFoodItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
-import edu.utexas.ece.pugs.grocerylist.foodstuff.PantryItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Purchase;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Quantity;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingList;
@@ -67,17 +64,17 @@ public class AddToPantryActivity extends AppCompatActivity {
                 Purchase newPurchase1 = new Purchase(listFoodItem1);
                 Purchase newPurchase2 = new Purchase(listFoodItem2);
 
-                ListNonFoodItem listNonFoodItem1 = new ListNonFoodItem("batteries",
+                ShoppingListNonFoodItem shoppingListNonFoodItem1 = new ShoppingListNonFoodItem("batteries",
                         new Quantity("3", "batteries", "batteries", "batteries"));
-                ListNonFoodItem listNonFoodItem2 = new ListNonFoodItem("hat",
+                ShoppingListNonFoodItem shoppingListNonFoodItem2 = new ShoppingListNonFoodItem("hat",
                         new Quantity("1", "articles", "articles", "articles"));
 
                 Pantry.getInstance().addPurchase(newPurchase1);
                 Pantry.getInstance().addPurchase(newPurchase2);
                 ShoppingList.getInstance().getListFoodItems().add(listFoodItem1);
                 ShoppingList.getInstance().getListFoodItems().add(listFoodItem2);
-                ShoppingList.getInstance().getNonFoodItems().add(listNonFoodItem1);
-                ShoppingList.getInstance().getNonFoodItems().add(listNonFoodItem2);
+                ShoppingList.getInstance().getNonFoodItems().add(shoppingListNonFoodItem1);
+                ShoppingList.getInstance().getNonFoodItems().add(shoppingListNonFoodItem2);
 
                 User.getInstance().getPantryReference().setValue(Pantry.getInstance().getPantryItems());
                 User.getInstance().getFoodItemListReference().setValue(ShoppingList.getInstance().getListFoodItems());

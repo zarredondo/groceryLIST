@@ -1,7 +1,6 @@
 package edu.utexas.ece.pugs.grocerylist;
 
 import android.content.Intent;
-import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.utexas.ece.pugs.grocerylist.foodstuff.ListFoodItem;
-import edu.utexas.ece.pugs.grocerylist.foodstuff.ListNonFoodItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListNonFoodItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.PantryItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingList;
@@ -158,9 +157,9 @@ public class SignInActivity extends AppCompatActivity {
                             User.getInstance().getNonFoodItemListReference().addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    List<ListNonFoodItem> nonFoodItems = (ArrayList<ListNonFoodItem>) dataSnapshot.getValue();
+                                    List<ShoppingListNonFoodItem> nonFoodItems = (ArrayList<ShoppingListNonFoodItem>) dataSnapshot.getValue();
                                     if (nonFoodItems== null) {
-                                        ShoppingList.getInstance().setNonFoodItems(new ArrayList<ListNonFoodItem>());
+                                        ShoppingList.getInstance().setNonFoodItems(new ArrayList<ShoppingListNonFoodItem>());
                                     } else {
                                         ShoppingList.getInstance().setNonFoodItems(nonFoodItems);
                                     }
