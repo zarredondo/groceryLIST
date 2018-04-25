@@ -46,4 +46,6 @@ public class ShoppingList {
     public void setNonFoodItems(List<ShoppingListNonFoodItem> nonFoodItems) {
         this.nonFoodItems = nonFoodItems;
     }
+
+
 }

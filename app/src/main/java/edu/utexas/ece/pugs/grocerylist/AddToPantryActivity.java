@@ -13,7 +13,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import edu.utexas.ece.pugs.grocerylist.foodstuff.PantryItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListFoodItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListNonFoodItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
@@ -48,12 +51,19 @@ public class AddToPantryActivity extends AppCompatActivity {
         unitEditText = (EditText) findViewById(R.id.unit_edit_text);
         fireBaseButton = (Button) findViewById(R.id.add_to_firebase_button);
 
-        final ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("mew"); arrayList.add("mewtwo");
-
         fireBaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (Pantry.getInstance().getPantryItems() == null) {
+                    Pantry.getInstance().setPantryItems(new HashMap<String, PantryItem>());
+                }
+                if (ShoppingList.getInstance().getNonFoodItems() == null) {
+                    ShoppingList.getInstance().setNonFoodItems(new ArrayList<ShoppingListNonFoodItem>());
+                }
+                if (ShoppingList.getInstance().getShoppingListFoodItems() == null) {
+                    ShoppingList.getInstance().setShoppingListFoodItems(new ArrayList<ShoppingListFoodItem>());
+                }
+
                 ShoppingListFoodItem listFoodItem1 = new ShoppingListFoodItem("69", "original", "pineapple",
                         new Quantity(3, "oz", "oz", "ounces"), "hard",
                         "produce", "pineapple.jpg", new Date());
@@ -71,8 +81,10 @@ public class AddToPantryActivity extends AppCompatActivity {
 
                 Pantry.getInstance().addPurchase(newPurchase1);
                 Pantry.getInstance().addPurchase(newPurchase2);
+
                 ShoppingList.getInstance().getShoppingListFoodItems().add(listFoodItem1);
                 ShoppingList.getInstance().getShoppingListFoodItems().add(listFoodItem2);
+                
                 ShoppingList.getInstance().getNonFoodItems().add(shoppingListNonFoodItem1);
                 ShoppingList.getInstance().getNonFoodItems().add(shoppingListNonFoodItem2);
 

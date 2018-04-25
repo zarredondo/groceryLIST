@@ -18,10 +18,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.PantryItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingList;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListFoodItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListNonFoodItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,26 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+
         mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("groceryLIST");
 
         mTextView = (TextView) findViewById(R.id.main_page_textview);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mTextView.setText(dataSnapshot.child("hi").getValue(String.class));
-                pantry = dataSnapshot.child("test6").getValue(Pantry.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @Override
@@ -70,8 +64,49 @@ public class MainActivity extends AppCompatActivity {
 
             sendToStart();
 
-        }
+        } else {
 
+            User.getInstance().setTriplet(currentUser.getUid(), currentUser.getEmail(), currentUser.getDisplayName());
+
+            User.getInstance().getPantryReference().addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Pantry.getInstance().setPantryItems((Map<String, PantryItem>) dataSnapshot.getValue());
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            User.getInstance().getFoodItemListReference().addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ShoppingList.getInstance().setShoppingListFoodItems((List<ShoppingListFoodItem>) dataSnapshot.getValue());
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            User.getInstance().getNonFoodItemListReference().addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    List<ShoppingListNonFoodItem> shoppingListNonFoodItems = (List<ShoppingListNonFoodItem>) dataSnapshot.getValue();
+                    if (shoppingListNonFoodItems != null) {
+                        ShoppingList.getInstance().setNonFoodItems(shoppingListNonFoodItems);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
     private void sendToStart() {
