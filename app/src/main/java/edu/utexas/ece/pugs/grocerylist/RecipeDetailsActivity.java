@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
 
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Recipe;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.RecipeList;
+
 /**
  * Created by Brandon on 3/17/2018.
  */

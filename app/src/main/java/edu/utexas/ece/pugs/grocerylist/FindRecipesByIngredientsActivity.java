@@ -12,7 +12,7 @@ import android.widget.EditText;
  * Created by Brandon on 4/23/2018.
  */
 
-public class FindRecipesByIngredientActivity extends AppCompatActivity {
+public class FindRecipesByIngredientsActivity extends AppCompatActivity {
     EditText ingredients;
     EditText ingredientLimitLicense;
     EditText ingredientNumber;
@@ -21,6 +21,8 @@ public class FindRecipesByIngredientActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_find_recipe_by_ingredient);
+
         ingredients = (EditText) findViewById(R.id.ingredients);
         ingredientLimitLicense = (EditText) findViewById(R.id.ingredient_limit_license);
         ingredientNumber = (EditText) findViewById(R.id.ingredient_number);
@@ -32,7 +34,7 @@ public class FindRecipesByIngredientActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("ingredients", ingredients.getText().toString());
-                returnIntent.putExtra("pantryLimitLicense", ingredientLimitLicense.getText().toString());
+                returnIntent.putExtra("ingredientLimitLicense", ingredientLimitLicense.getText().toString());
                 returnIntent.putExtra("ingredientNumber", ingredientNumber.getText().toString());
                 returnIntent.putExtra("ingredientRanking", ingredientRanking.getText().toString());
                 setResult(Activity.RESULT_OK, returnIntent);

@@ -36,7 +36,6 @@
         </activity>
 
         <activity android:name=".RecipeDetailsActivity"></activity>
-
         <activity android:name=".StartActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".SignInActivity">

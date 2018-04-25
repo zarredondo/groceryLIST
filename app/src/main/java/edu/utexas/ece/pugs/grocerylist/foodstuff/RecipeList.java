@@ -16,7 +16,7 @@ public class RecipeList {
     }
 
     private RecipeList() {
-        this.RecipeList = new ArrayList<>();
+        this.recipes = new ArrayList<>();
     }
 
     public static RecipeList getInstance() {
@@ -24,10 +24,10 @@ public class RecipeList {
     }
 
     public void setRecipeList(List<Recipe> recipes) {
-        this.RecipeList = recipes;
+        this.recipes = recipes;
     }
 
     public List<Recipe> getRecipeList() {
-        return RecipeList;
+        return recipes;
     }
 }
