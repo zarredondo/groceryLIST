@@ -13,13 +13,17 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-import edu.utexas.ece.pugs.grocerylist.foodstuff.FoodItem;
-import edu.utexas.ece.pugs.grocerylist.foodstuff.Ingredient;
-import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.PantryItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListFoodItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListNonFoodItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Purchase;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Quantity;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingList;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.User;
 
 public class AddToPantryActivity extends AppCompatActivity {
     DatabaseReference mDatabase;
@@ -31,8 +35,6 @@ public class AddToPantryActivity extends AppCompatActivity {
     EditText amountEditText;
     EditText unitEditText;
     Button fireBaseButton;
-
-    Pantry landry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,27 +50,47 @@ public class AddToPantryActivity extends AppCompatActivity {
         amountEditText = (EditText) findViewById(R.id.amount_edit_text);
         unitEditText = (EditText) findViewById(R.id.unit_edit_text);
         fireBaseButton = (Button) findViewById(R.id.add_to_firebase_button);
-        final ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("mew"); arrayList.add("mewtwo");
 
         fireBaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Purchase newPurchase = new Purchase("69", "original", "pineapple",
-                        new Quantity("3", "oz", "oz", "ounces"), "hard",
-                        arrayList, "produce", "pineapple.jpg", arrayList, new Date());
+                if (Pantry.getInstance().getPantryItems() == null) {
+                    Pantry.getInstance().setPantryItems(new HashMap<String, PantryItem>());
+                }
+                if (ShoppingList.getInstance().getNonFoodItems() == null) {
+                    ShoppingList.getInstance().setNonFoodItems(new ArrayList<ShoppingListNonFoodItem>());
+                }
+                if (ShoppingList.getInstance().getShoppingListFoodItems() == null) {
+                    ShoppingList.getInstance().setShoppingListFoodItems(new ArrayList<ShoppingListFoodItem>());
+                }
 
-                Purchase newPurchase2 = new Purchase("420", "original", "pineapple",
-                        new Quantity("3", "oz", "oz", "ounces"), "hard",
-                        arrayList, "produce", "pineapple.jpg", arrayList, new Date());
-                Quantity quantity = new Quantity("a", "b", "c", "d");
+                ShoppingListFoodItem listFoodItem1 = new ShoppingListFoodItem("69", "original", "pineapple",
+                        new Quantity(3, "oz", "oz", "ounces"), "hard",
+                        "produce", "pineapple.jpg", new Date());
+                ShoppingListFoodItem listFoodItem2 = new ShoppingListFoodItem("420", "original", "pineapple",
+                        new Quantity(3, "oz", "oz", "ounces"), "hard",
+                        "produce", "pineapple.jpg", new Date());
 
-                //landry = new Pantry();
-                //landry.addPurchase(newPurchase);
-                //landry.addPurchase(newPurchase2);
-                //mDatabase.child("test").setValue(newPurchase);
-                //mDatabase.child("test6").setValue(landry);
+                Purchase newPurchase1 = new Purchase(listFoodItem1);
+                Purchase newPurchase2 = new Purchase(listFoodItem2);
 
+                ShoppingListNonFoodItem shoppingListNonFoodItem1 = new ShoppingListNonFoodItem("batteries",
+                        new Quantity(3, "batteries", "batteries", "batteries"));
+                ShoppingListNonFoodItem shoppingListNonFoodItem2 = new ShoppingListNonFoodItem("hat",
+                        new Quantity(3, "articles", "articles", "articles"));
+
+                Pantry.getInstance().addPurchase(newPurchase1);
+                Pantry.getInstance().addPurchase(newPurchase2);
+
+                ShoppingList.getInstance().getShoppingListFoodItems().add(listFoodItem1);
+                ShoppingList.getInstance().getShoppingListFoodItems().add(listFoodItem2);
+
+                ShoppingList.getInstance().getNonFoodItems().add(shoppingListNonFoodItem1);
+                ShoppingList.getInstance().getNonFoodItems().add(shoppingListNonFoodItem2);
+
+                User.getInstance().getPantryReference().setValue(Pantry.getInstance().getPantryItems());
+                User.getInstance().getFoodItemListReference().setValue(ShoppingList.getInstance().getShoppingListFoodItems());
+                User.getInstance().getNonFoodItemListReference().setValue(ShoppingList.getInstance().getNonFoodItems());
             }
         });
     }

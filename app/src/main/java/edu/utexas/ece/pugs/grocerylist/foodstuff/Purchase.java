@@ -16,10 +16,17 @@ public class Purchase extends FoodItem {
     }
 
     public Purchase(String id, String original, String name, Quantity quantity, String consistency,
-                    List<String> shoppingListUnits, String aisle, String image, List<String> meta,
-                    Date expirationDate) {
-        super(id, original, name, quantity, consistency, shoppingListUnits, aisle, image, meta);
+                    String aisle, String image, Date expirationDate) {
+        super(id, original, name, quantity, consistency, aisle, image);
         this.expirationDate = expirationDate;
+        this.purchaseDate = Calendar.getInstance().getTime();
+    }
+
+    public Purchase(ShoppingListFoodItem listFoodItem) {
+        super(listFoodItem.getId(), listFoodItem.getOriginal(), listFoodItem.getName(),
+                listFoodItem.getQuantity(), listFoodItem.getConsistency(),
+                listFoodItem.getAisle(), listFoodItem.getImage());
+        this.expirationDate = listFoodItem.getExpirationDate();
         this.purchaseDate = Calendar.getInstance().getTime();
     }
 

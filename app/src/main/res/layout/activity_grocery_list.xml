@@ -4,30 +4,124 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="edu.utexas.ece.pugs.grocerylist.GroceryListActivity">
+    android:layout_height="match_parent">
+    <!--android:background="@drawable/sunnyforest"-->
 
     <TextView
-        android:id="@+id/message"
+        android:id="@+id/Title"
+        android:layout_width="222dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="146dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="sans-serif"
+        android:gravity="start"
+        android:text="@string/title_activity_grocery_list"
+        android:textAlignment="viewStart"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        app:layout_constraintBottom_toTopOf="@+id/addItemText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="146dp"
+        android:layout_marginLeft="16dp" />
+
+    <ListView
+        android:id="@+id/groceryList"
+        style="@style/Widget.AppCompat.ListView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="56dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:drawable/editbox_dropdown_light_frame"
+        android:cacheColorHint="@color/common_google_signin_btn_text_light_default"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addItemButton" />
+
+    <Button
+        android:id="@+id/addItemButton"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="72dp"
+        android:text="+"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="8dp" />
+
+    <EditText
+        android:id="@+id/addItemText"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:drawable/edit_text"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@color/common_google_signin_btn_text_light_focused"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/groceryList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Title"
+        tools:text="@string/item_entry" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="88dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:text="Pantry"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/button4"
+        app:layout_constraintTop_toBottomOf="@+id/groceryList" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:text="GroceryList"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/groceryList"
+        app:layout_constraintVertical_bias="0.025"
+        android:layout_marginLeft="16dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/title_home"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:background="?android:attr/windowBackground"
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="2dp"
+        android:text="RecipeList"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/groceryList"
+        app:layout_constraintVertical_bias="0.666"
+        android:layout_marginRight="16dp" />
 
 </android.support.constraint.ConstraintLayout>

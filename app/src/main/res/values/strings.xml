@@ -32,4 +32,7 @@
     <string name="amount">Amount</string>
     <string name="id">ID</string>
     <string name="food_name">Food Name</string>
+
+    <!-- Strings related to GroceryList -->
+    <string name="item_entry">Please enter an item.</string>
 </resources>

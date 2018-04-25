@@ -1,6 +1,7 @@
 package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zarredondo on 4/20/2018.
@@ -12,26 +13,36 @@ public class FoodItem {
     String name;
     Quantity quantity;
     String consistency;
-    List<String> shoppingListUnits;
     String aisle;
     String image;
-    List<String> meta;
 
     public FoodItem() {
 
     }
 
-    public FoodItem(String id, String original, String name, Quantity quantity, String consistency,
-                    List<String> shoppingListUnits, String aisle, String image, List<String> meta) {
+    public FoodItem(Map<String, Object> itemEntry) {
+        this.id = (String)itemEntry.get("id");
+        this.name = (String)itemEntry.get("name");
+        this.original = (String)itemEntry.get("original");
+        this.quantity.setAmount((int)itemEntry.get("amount"));
+        if (itemEntry.containsKey("unit")){
+            this.quantity.setUnit((String)itemEntry.get("unit"));
+        }
+        else if (itemEntry.containsKey("unitLong")) {
+            this.quantity.setUnit((String)itemEntry.get("unitLong"));
+        }
+        this.image = (String)itemEntry.get("image");
+
+    }
+
+    public FoodItem(String id, String original, String name, Quantity quantity, String consistency, String aisle, String image) {
         this.id = id;
         this.original = original;
         this.name = name;
         this.quantity = quantity;
         this.consistency = consistency;
-        this.shoppingListUnits = shoppingListUnits;
         this.aisle = aisle;
         this.image = image;
-        this.meta = meta;
     }
 
     public String getId() {
@@ -74,13 +85,6 @@ public class FoodItem {
         this.consistency = consistency;
     }
 
-    public List<String> getShoppingListUnits() {
-        return shoppingListUnits;
-    }
-
-    public void setShoppingListUnits(List<String> shoppingListUnits) {
-        this.shoppingListUnits = shoppingListUnits;
-    }
 
     public String getAisle() {
         return aisle;
@@ -98,11 +102,4 @@ public class FoodItem {
         this.image = image;
     }
 
-    public List<String> getMeta() {
-        return meta;
-    }
-
-    public void setMeta(List<String> meta) {
-        this.meta = meta;
-    }
 }

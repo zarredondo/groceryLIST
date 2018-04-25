@@ -1,7 +1,6 @@
 package edu.utexas.ece.pugs.grocerylist;
 
 import android.content.Intent;
-import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,11 +23,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListFoodItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListNonFoodItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.PantryItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingList;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.User;
 
 
 public class SignInActivity extends AppCompatActivity {
@@ -110,20 +115,21 @@ public class SignInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Success", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent mainIntent = new Intent(SignInActivity.this, MainActivity.class);
+                            Intent mainIntent = new Intent(SignInActivity.this, AddToPantryActivity.class);
+
+                            User.getInstance().setTriplet(user.getUid(), user.getEmail(), user.getDisplayName());
+
+                            new FirebaseLoader().execute(new String[]{});
+
                             startActivity(mainIntent);
-
                             finish();
-
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("Authentication failed.", "signInWithEmail:failure", task.getException());
+                            /*Log.w("Authentication failed.", "signInWithEmail:failure", task.getException());*/
                             Toast.makeText(SignInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
 
                         }
-
-                        // ...
                     }
                 });
     }

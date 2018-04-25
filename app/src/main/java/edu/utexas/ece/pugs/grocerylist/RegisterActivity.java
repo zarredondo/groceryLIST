@@ -98,10 +98,8 @@ public class RegisterActivity extends AppCompatActivity {
                             Log.d("success", "createUserWithEmail:success");
 
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                            User user = new User(email, displayName);
-
-                            mDatabase.child("users").child(firebaseUser.getUid()).setValue(user);
-
+                            mDatabase.child("users").child(firebaseUser.getUid()).setValue(firebaseUser.getUid());
+                            User.getInstance().setTriplet(firebaseUser.getUid(), email, displayName);
 
                             Toast.makeText(RegisterActivity.this, "Authentication successful.",
                                     Toast.LENGTH_SHORT).show();
@@ -111,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
                             finish();
 
                         } else {
-                            //Log.w("failure", "createUserWithEmail:failure", task.getException());
+                            Log.w("failure", "createUserWithEmail:failure", task.getException());
 
                             Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
