@@ -48,7 +48,7 @@ public class GroceryListActivity extends AppCompatActivity {
                 final TextView item = findViewById(R.id.addItemText);
                 String name = String.valueOf(item.getText());
 
-                controller.getAutocompleteIngredientSearchAsync(name, findIngredientCallback);
+                controller.createParseIngredientsAsync(name, 1, findIngredientCallback);
                 Map<String, Object> itemEntry = findIngredientCallback.getResult();
 
                 FoodItem food = new FoodItem(itemEntry);

@@ -2,12 +2,13 @@ package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 /**
  * Created by zarredondo on 4/11/2018.
  */
 
-public class ShoppingList {
+public class ShoppingList extends Observer {
     private static ShoppingList uniqueInstance = new ShoppingList();
 
     private List<ShoppingListFoodItem> shoppingListFoodItems;
