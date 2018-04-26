@@ -119,57 +119,7 @@ public class SignInActivity extends AppCompatActivity {
 
                             User.getInstance().setTriplet(user.getUid(), user.getEmail(), user.getDisplayName());
 
-                            User.getInstance().getPantryReference().addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    Map<String, PantryItem> pantryItemMap = (Map<String, PantryItem>) dataSnapshot.getValue();
-                                    if (pantryItemMap == null) {
-                                        Pantry.getInstance().setPantryItems(new HashMap<String, PantryItem>());
-                                    } else {
-                                        Pantry.getInstance().setPantryItems(pantryItemMap);
-                                    }
-
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-
-                            User.getInstance().getFoodItemListReference().addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    List<ShoppingListFoodItem> foodItems = (ArrayList<ShoppingListFoodItem>) dataSnapshot.getValue();
-                                    if (foodItems == null) {
-                                        ShoppingList.getInstance().setShoppingListFoodItems(new ArrayList<ShoppingListFoodItem>());
-                                    } else {
-                                        ShoppingList.getInstance().setShoppingListFoodItems(foodItems);
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-
-                            User.getInstance().getNonFoodItemListReference().addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    List<ShoppingListNonFoodItem> nonFoodItems = (ArrayList<ShoppingListNonFoodItem>) dataSnapshot.getValue();
-                                    if (nonFoodItems== null) {
-                                        ShoppingList.getInstance().setNonFoodItems(new ArrayList<ShoppingListNonFoodItem>());
-                                    } else {
-                                        ShoppingList.getInstance().setNonFoodItems(nonFoodItems);
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
+                            new FirebaseLoader().execute(new String[]{});
 
                             startActivity(mainIntent);
                             finish();
@@ -180,8 +130,6 @@ public class SignInActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
 
                         }
-
-                        // ...
                     }
                 });
     }
