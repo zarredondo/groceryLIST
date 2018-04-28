@@ -88,9 +88,9 @@ public class AddToPantryActivity extends AppCompatActivity {
                 ShoppingList.getInstance().getNonFoodItems().add(shoppingListNonFoodItem1);
                 ShoppingList.getInstance().getNonFoodItems().add(shoppingListNonFoodItem2);
 
-                User.getInstance().getPantryReference().setValue(Pantry.getInstance().getPantryItems());
+                /*User.getInstance().getPantryReference().setValue(Pantry.getInstance().getPantryItems());
                 User.getInstance().getFoodItemListReference().setValue(ShoppingList.getInstance().getShoppingListFoodItems());
-                User.getInstance().getNonFoodItemListReference().setValue(ShoppingList.getInstance().getNonFoodItems());
+                User.getInstance().getNonFoodItemListReference().setValue(ShoppingList.getInstance().getNonFoodItems());*/
             }
         });
     }

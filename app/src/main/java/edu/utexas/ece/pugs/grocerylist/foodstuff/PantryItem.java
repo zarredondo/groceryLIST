@@ -34,9 +34,11 @@ public class PantryItem {
         }
     }
 
+
     public void setItemName(String name){
         if (!purchases.isEmpty()) {
             purchases.get(0).setName(name);
         }
     }
+
 }
