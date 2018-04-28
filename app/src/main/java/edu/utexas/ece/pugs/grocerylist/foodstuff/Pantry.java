@@ -1,16 +1,8 @@
 package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
-import android.support.annotation.NonNull;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 
 /**
  * Created by zarredondo on 4/11/2018.
@@ -45,15 +37,13 @@ public class Pantry {
      * @param purchase
      */
     public void addPurchase(Purchase purchase) {
-
         if(pantryItems.containsKey(purchase.getId())) {
             pantryItems.get(purchase.getId()).addPurchase(purchase);
-
-            /*User.getInstance().getPantryReference().child(purchase.getId())*/
         } else {
             PantryItem pantryItem = new PantryItem();
             pantryItem.addPurchase(purchase);
             pantryItems.put(purchase.getId(), pantryItem);
         }
+        User.getInstance().getPantryReference().setValue(this.getPantryItems());
     }
 }

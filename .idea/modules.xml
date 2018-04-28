@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/SpoonacularAPILib/SpoonacularAPILib.iml" filepath="$PROJECT_DIR$/SpoonacularAPILib/SpoonacularAPILib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/groceryLIST.iml" filepath="$PROJECT_DIR$/groceryLIST.iml" />
-      <module fileurl="file://C:\Users\zarredondo\AndroidStudioProjects\groceryLIST\app\groceryLIST-app.iml" filepath="C:\Users\zarredondo\AndroidStudioProjects\groceryLIST\app\groceryLIST-app.iml" />
     </modules>
   </component>
 </project>

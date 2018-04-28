@@ -118,7 +118,7 @@ public class SignInActivity extends AppCompatActivity {
                             Intent mainIntent = new Intent(SignInActivity.this, AddToPantryActivity.class);
 
                             User.getInstance().setTriplet(user.getUid(), user.getEmail(), user.getDisplayName());
-
+                            User.getInstance().addUserToDatabase();
                             new FirebaseLoader().execute(new String[]{});
 
                             startActivity(mainIntent);
