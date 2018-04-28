@@ -1,5 +1,6 @@
 package edu.utexas.ece.pugs.grocerylist;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,7 +10,18 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import android.graphics.drawable.*;
 import android.graphics.*;
 import android.widget.EditText;
@@ -17,12 +29,39 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.mashape.p.spoonacularrecipefoodnutritionv1.Configuration;
+import com.mashape.p.spoonacularrecipefoodnutritionv1.SpoonacularAPIClient;
+import com.mashape.p.spoonacularrecipefoodnutritionv1.controllers.APIController;
+import com.mashape.p.spoonacularrecipefoodnutritionv1.http.client.APICallBack;
+import com.mashape.p.spoonacularrecipefoodnutritionv1.http.client.HttpContext;
+import com.mashape.p.spoonacularrecipefoodnutritionv1.models.DynamicResponse;
+
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.PantryItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Purchase;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Quantity;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.User;
+
 public class PantryActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
-    DbHelper dbHelper;
     ArrayAdapter<String> adapter;
     ListView lstItems;
+    final String XMashapeKey = "TyI4LJpGVLmshLMmIsnLipUE0L8gp1zPJjKjsn2dx6UOeb2N84";
+    SpoonacularAPIClient client;
+    APIController controller;
+    public ArrayList<Map<String, Object>> result;
+    public Map<String, PantryItem> itemMap;
+    public String item;
+    public Pantry pan;
+    public User user;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -47,19 +86,46 @@ public class PantryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        com.mashape.p.spoonacularrecipefoodnutritionv1.Configuration.initialize(this);
+        client = new SpoonacularAPIClient();
+        Configuration.setXMashapeKey(XMashapeKey);
         setContentView(R.layout.activity_pantry);
 
-        dbHelper = new DbHelper(this);
+        controller = client.getClient();
         lstItems = (ListView) findViewById(R.id.lstItems);
 
-        showItemList();
+        pan = Pantry.getInstance();
+        user = User.getInstance();
+
+        user.getPantryReference().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                itemMap = new HashMap<String, PantryItem>();
+                ArrayList<String> itemList = new ArrayList<>();
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    PantryItem pan = ds.getValue(PantryItem.class);
+                    itemMap.put(ds.getKey(), pan);
+                }
+                ArrayList<PantryItem> values = new ArrayList<>(itemMap.values());
+                for(PantryItem items : values){
+                    item = items.getItemName();
+                    itemList.add(item);
+                }
+                Collections.sort(itemList);
+                showItemList(itemList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    private void showItemList(){
-        ArrayList<String> itemList = dbHelper.getGroceryList();
+    private void showItemList(ArrayList<String> itemList){
         if(adapter == null){
             adapter = new ArrayAdapter<String>(this, R.layout.row, R.id.item_title, itemList);
             lstItems.setAdapter(adapter);
@@ -93,9 +159,55 @@ public class PantryActivity extends AppCompatActivity {
                         .setPositiveButton("Add", new DialogInterface.OnClickListener(){
                             @Override
                             public void onClick(DialogInterface dialog, int chich){
-                                String item = String.valueOf(itemEditText.getText());
-                                dbHelper.insertNewItem(item);
-                                showItemList();
+                                final String item = String.valueOf(itemEditText.getText());
+                                controller.createParseIngredientsAsync(item, 1, new APICallBack<DynamicResponse>() {
+                                    @Override
+                                    public void onSuccess(HttpContext context, DynamicResponse response) {
+                                        try {
+                                            result = response.parse(ArrayList.class);
+                                        } catch (ParseException e) {
+                                            e.printStackTrace();
+                                            System.out.println("error1");
+                                        }
+                                        Purchase pur = new Purchase();
+                                        Quantity quan = new Quantity();
+                                        for(Map.Entry<String, Object> entry: result.get(0).entrySet()) {
+                                            if(entry.getKey() == "id") {
+                                                pur.setId(entry.getValue().toString());
+                                            }
+                                            else if(entry.getKey() == "original") {
+                                                pur.setOriginal(entry.getValue().toString());
+                                            }else if(entry.getKey() == "name") {
+                                                pur.setName(entry.getValue().toString());
+                                            }else if(entry.getKey() == "amount") {
+                                                quan.setAmount(1);
+                                            }else if(entry.getKey() == "consistency") {
+                                                pur.setConsistency(entry.getValue().toString());
+                                            }else if(entry.getKey() == "aisle") {
+                                                pur.setAisle(entry.getValue().toString());
+                                            }else if(entry.getKey() == "image") {
+                                                pur.setImage(entry.getValue().toString());
+                                            } else if(entry.getKey() == "unit") {
+                                                quan.setUnit(entry.getValue().toString());
+                                            }else if(entry.getKey() == "unitShort") {
+                                                quan.setUnitShort(entry.getValue().toString());
+                                            }else if(entry.getKey() == "unitLong") {
+                                                quan.setUnitLong(entry.getValue().toString());
+                                            }
+                                            else{
+                                            }
+                                        }
+                                        pur.setExpirationDate(Calendar.getInstance().getTime());
+                                        pur.setPurchaseDate(Calendar.getInstance().getTime());
+                                        pur.setQuantity(quan);
+                                        pan.addPurchase(pur);
+                                    }
+
+                                    @Override
+                                    public void onFailure(HttpContext context, Throwable error) {
+
+                                    }
+                                });
                             }
                         })
                         .setNegativeButton("Cancel", null)
@@ -109,8 +221,33 @@ public class PantryActivity extends AppCompatActivity {
     public void deleteItem(View view){
         View  parent = (View)view.getParent();
         TextView itemTextView = (TextView) parent.findViewById(R.id.item_title);
-        String item = String.valueOf(itemTextView.getText());
-        dbHelper.deleteItem(item);
-        showItemList();
+        final String item = String.valueOf(itemTextView.getText());
+
+        controller.createParseIngredientsAsync(item, 1, new APICallBack<DynamicResponse>() {
+            @Override
+            public void onSuccess(HttpContext context, DynamicResponse response) {
+                String key = "";
+                try {
+                    result = response.parse(ArrayList.class);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                for(Map.Entry<String, Object> entry: result.get(0).entrySet()) {
+                    if(entry.getKey() == "id") {
+                        key = entry.getValue().toString();
+                        System.out.println(key);
+                    }
+                    else{
+                    }
+                }
+                user.getPantryReference().child(key).removeValue();
+            }
+
+            @Override
+            public void onFailure(HttpContext context, Throwable error) {
+
+            }
+        });
     }
+
 }

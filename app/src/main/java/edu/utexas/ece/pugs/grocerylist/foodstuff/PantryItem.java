@@ -25,4 +25,18 @@ public class PantryItem {
     public void addPurchase(Purchase purchase) {
         purchases.add(purchase);
     }
+
+    public String getItemName() {
+        if (!purchases.isEmpty()) {
+            return purchases.get(0).getName();
+        } else {
+            return "";
+        }
+    }
+
+    public void setItemName(String name){
+        if (!purchases.isEmpty()) {
+            purchases.get(0).setName(name);
+        }
+    }
 }
