@@ -1,6 +1,7 @@
 package edu.utexas.ece.pugs.grocerylist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -53,7 +54,6 @@ import edu.utexas.ece.pugs.grocerylist.foodstuff.User;
 
 public class PantryActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
     ArrayAdapter<String> adapter;
     ListView lstItems;
     final String XMashapeKey = "TyI4LJpGVLmshLMmIsnLipUE0L8gp1zPJjKjsn2dx6UOeb2N84";
@@ -72,13 +72,19 @@ public class PantryActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
+                    return false;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                    Intent groceryList = new Intent(getApplicationContext(), GroceryListActivity.class);// New activity
+                    groceryList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(groceryList);
+                    finish();
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    //mTextMessage.setText(R.string.title_notifications);
+                    Intent recipe = new Intent(getApplicationContext(), RecipeActivity.class);// New activity
+                    recipe.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(recipe);
+                    finish();
                     return true;
             }
             return false;

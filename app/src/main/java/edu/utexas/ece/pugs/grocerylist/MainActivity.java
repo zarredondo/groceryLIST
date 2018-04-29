@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             sendToStart();
 
         } else {
-
+            User.getInstance().setFirebaseEnable(true);
             User.getInstance().setTriplet(currentUser.getUid(), currentUser.getEmail(), currentUser.getDisplayName());
 
             User.getInstance().getPantryReference().addListenerForSingleValueEvent(new ValueEventListener() {
@@ -108,7 +108,11 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
+            Intent startIntent = new Intent(MainActivity.this, PantryActivity.class);
+            startActivity(startIntent);
+            finish();
         }
+
     }
 
     private void sendToStart() {
