@@ -21,6 +21,15 @@ public class User {
     private DatabaseReference nonFoodItemListReference;
     private DatabaseReference FoodItemListReference;
     private DatabaseReference userReference;
+    private Boolean firebaseEnable;
+
+    public Boolean getFirebaseEnable() {
+        return firebaseEnable;
+    }
+
+    public void setFirebaseEnable(Boolean firebaseEnable) {
+        this.firebaseEnable = firebaseEnable;
+    }
 
     public static User getInstance() {
         return uniqueInstance;
@@ -34,7 +43,6 @@ public class User {
         this.emailAddress = emailAddress;
         this.displayName = displayName;
         this.updateDatabaseReferences();
-
     }
 
     public DatabaseReference getPantryReference() {
@@ -87,11 +95,13 @@ public class User {
     }
 
     private void updateDatabaseReferences() {
-        this.firebaseReference = FirebaseDatabase.getInstance().getReference();
-        this.pantryReference = firebaseReference.child("pantryMaps").child(userID);
-        this.shoppingListReference = firebaseReference.child("shoppingLists").child(userID);
-        this.nonFoodItemListReference = shoppingListReference.child("nonFoodItemList");
-        this.FoodItemListReference = shoppingListReference.child("foodItemList");
-        this.userReference = firebaseReference.child("users");
+        if (this.firebaseEnable) {
+            this.firebaseReference = FirebaseDatabase.getInstance().getReference();
+            this.pantryReference = firebaseReference.child("pantryMaps").child(userID);
+            this.shoppingListReference = firebaseReference.child("shoppingLists").child(userID);
+            this.nonFoodItemListReference = shoppingListReference.child("nonFoodItemList");
+            this.FoodItemListReference = shoppingListReference.child("foodItemList");
+            this.userReference = firebaseReference.child("users");
+        }
     }
 }
