@@ -16,6 +16,7 @@ import java.util.List;
 
 import edu.utexas.ece.pugs.grocerylist.foodstuff.FoodItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Ingredient;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Purchase;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Recipe;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.RecipeList;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingList;
@@ -35,7 +36,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     TextView recipeDetailsInstructions;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
 
@@ -59,15 +60,18 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 for (Ingredient ingredient : recipeList.get(index).getIngredients()) {
-                    FoodItem foodItem = new FoodItem();
-                    foodItem.setId(ingredient.getId());
-                    foodItem.setAisle(ingredient.getAisle());
-                    foodItem.setImage(ingredient.getImage());
-                    foodItem.setName(ingredient.getName());
-                    foodItem.setConsistency(ingredient.getConsistency());
-                    foodItem.setOriginal(ingredient.getOriginal());
-                    foodItem.setQuantity(ingredient.getQuantity());
-                    //shoppingListFoodItems.add(foodItem);
+                    ShoppingListFoodItem shoppingListFoodItem = new ShoppingListFoodItem();
+                    shoppingListFoodItem.setId(ingredient.getId());
+                    shoppingListFoodItem.setAisle(ingredient.getAisle());
+                    shoppingListFoodItem.setImage(ingredient.getImage());
+                    shoppingListFoodItem.setName(ingredient.getName());
+                    shoppingListFoodItem.setConsistency(ingredient.getConsistency());
+                    shoppingListFoodItem.setOriginal(ingredient.getOriginal());
+                    shoppingListFoodItem.setQuantity(ingredient.getQuantity());
+                    shoppingListFoodItem.setAddedDate(null);
+                    shoppingListFoodItem.setPurchaseDate(null);
+                    shoppingListFoodItem.setExpirationDate(null);
+                    shoppingListFoodItems.add(shoppingListFoodItem);
                 }
             }
         });

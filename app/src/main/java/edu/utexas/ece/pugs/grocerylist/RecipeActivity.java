@@ -64,7 +64,6 @@ public class RecipeActivity extends AppCompatActivity {
     }
 
     State state = PANTRY;
-    private TextView mTextMessage;
     String xMashapeKey = "TyI4LJpGVLmshLMmIsnLipUE0L8gp1zPJjKjsn2dx6UOeb2N84";
     CustomAdapter customAdapter = new CustomAdapter();
     Map<String, PantryItem> pantryList = Pantry.getInstance().getPantryItems();
@@ -78,13 +77,10 @@ public class RecipeActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
