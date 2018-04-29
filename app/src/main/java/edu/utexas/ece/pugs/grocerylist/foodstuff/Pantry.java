@@ -1,6 +1,8 @@
 package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -46,6 +48,26 @@ public class Pantry {
         }
         if (User.getInstance().getFirebaseEnable()) {
             User.getInstance().getPantryReference().setValue(this.getPantryItems());
+        }
+    }
+
+    public void removePurchase(String id){
+        if(pantryItems.containsKey(id)){
+            pantryItems.remove(id);
+        }
+    }
+
+    public void updatePurchase(String id){
+        if(pantryItems.containsKey(id)){
+            PantryItem pan = pantryItems.get(id);
+            List<Purchase> li = pan.getPurchases();
+            for(Purchase pur : li){
+                System.out.println(pur.getName().toString());
+            }
+            if(!li.isEmpty() && li.size() > 1) {
+                li.remove(0);
+                User.getInstance().getPantryReference().setValue(pantryItems);
+            }
         }
     }
 }
