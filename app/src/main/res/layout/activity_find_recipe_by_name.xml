@@ -10,56 +10,56 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Natural Language of the Recipe"
-        app:layout_constraintBottom_toTopOf="@+id/cuisine"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/cuisine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Cuisine type i.e. chinese (optional)"
-        app:layout_constraintBottom_toTopOf="@+id/diet" />
+        app:layout_constraintTop_toBottomOf="@+id/query" />
 
     <EditText
         android:id="@+id/diet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Diet i.e. vegetarian(optional)"
-        app:layout_constraintBottom_toTopOf="@+id/excludeIngredients" />
+        app:layout_constraintTop_toBottomOf="@+id/cuisine" />
 
     <EditText
         android:id="@+id/excludeIngredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Exclude ingredients i.e. tomato (optional)"
-        app:layout_constraintBottom_toTopOf="@+id/intolerances" />
+        app:layout_constraintTop_toBottomOf="@+id/diet" />
 
     <EditText
         android:id="@+id/intolerances"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Intolerances i.e. dairy (optional)"
-        app:layout_constraintBottom_toTopOf="@+id/nameLimitLicense" />
+        app:layout_constraintTop_toBottomOf="@+id/excludeIngredients" />
 
     <EditText
         android:id="@+id/nameLimitLicense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Limit License i.e. true/false (optional)"
-        app:layout_constraintBottom_toTopOf="@+id/nameNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/intolerances" />
 
     <EditText
         android:id="@+id/nameNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Number of results (0 - 100) (optional)"
-        app:layout_constraintBottom_toTopOf="@+id/offset" />
+        app:layout_constraintTop_toBottomOf="@+id/nameLimitLicense" />
 
     <EditText
         android:id="@+id/offset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Number of results to skip (0 - 900) (optional)"
-        app:layout_constraintBottom_toTopOf="@+id/type" />
+        app:layout_constraintTop_toBottomOf="@+id/nameNumber" />
 
     <EditText
         android:id="@+id/type"
@@ -67,10 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="148dp"
         android:hint="Type of recipes i.e. dessert (optional)"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/offset" />
 
     <Button
         android:id="@+id/nameRecipeButton"

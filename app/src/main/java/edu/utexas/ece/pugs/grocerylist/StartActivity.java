@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.mashape.p.spoonacularrecipefoodnutritionv1.Configuration;
+import com.mashape.p.spoonacularrecipefoodnutritionv1.SpoonacularAPIClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +17,16 @@ import java.util.List;
 public class StartActivity extends AppCompatActivity {
     private Button mRegBtn;
     private Button mSignInBtn;
-
+    String xMashapeKey = "groceryLIST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        com.mashape.p.spoonacularrecipefoodnutritionv1.Configuration.initialize(getApplicationContext());
+        SpoonacularAPIClient client = new SpoonacularAPIClient();
+        Configuration.setXMashapeKey(xMashapeKey);
 
         mRegBtn = (Button) findViewById(R.id.start_reg_btn);
         mSignInBtn = (Button) findViewById(R.id.start_sign_in_btn);

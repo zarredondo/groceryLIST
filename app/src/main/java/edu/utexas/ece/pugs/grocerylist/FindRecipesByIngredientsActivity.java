@@ -32,7 +32,7 @@ public class FindRecipesByIngredientsActivity extends AppCompatActivity {
         ingredientRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent returnIntent = new Intent();
+                Intent returnIntent = new Intent(getApplicationContext(), RecipeActivity.class);
                 returnIntent.putExtra("ingredients", ingredients.getText().toString());
                 returnIntent.putExtra("ingredientLimitLicense", ingredientLimitLicense.getText().toString());
                 returnIntent.putExtra("ingredientNumber", ingredientNumber.getText().toString());

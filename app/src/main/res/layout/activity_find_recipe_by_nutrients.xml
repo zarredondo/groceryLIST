@@ -10,50 +10,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Maximum calories (optional)"
-        app:layout_constraintBottom_toTopOf="@+id/max_carbs"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/max_carbs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Maximum carbohydrates (optional)"
-        app:layout_constraintBottom_toTopOf="@+id/max_fat" />
+        app:layout_constraintTop_toBottomOf="@+id/max_calories" />
 
     <EditText
         android:id="@+id/max_fat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Maximum fat (optional)"
-        app:layout_constraintBottom_toTopOf="@+id/max_protein" />
+        app:layout_constraintTop_toBottomOf="@+id/max_carbs" />
 
     <EditText
         android:id="@+id/max_protein"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Maximum protein (optional)"
-        app:layout_constraintBottom_toTopOf="@+id/min_calories" />
+        app:layout_constraintTop_toBottomOf="@+id/max_fat" />
 
     <EditText
         android:id="@+id/min_calories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Minimum calories (optional)"
-        app:layout_constraintBottom_toTopOf="@+id/min_carbs" />
+        app:layout_constraintTop_toBottomOf="@+id/max_protein" />
 
     <EditText
         android:id="@+id/min_carbs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Minimum carbohydrates (optional)"
-        app:layout_constraintBottom_toTopOf="@+id/min_fat" />
+        app:layout_constraintTop_toBottomOf="@+id/min_calories" />
 
     <EditText
         android:id="@+id/min_fat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Minimum fat (optional)"
-        app:layout_constraintBottom_toTopOf="@+id/min_protein" />
-
+        app:layout_constraintTop_toBottomOf="@+id/min_carbs" />
 
     <EditText
         android:id="@+id/min_protein"
@@ -61,17 +60,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="192dp"
         android:hint="Minimum protein (optional)"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/min_fat" />
 
     <Button
         android:id="@+id/nutrientRecipeButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Find Recipes By Nutrients"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="10dp"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

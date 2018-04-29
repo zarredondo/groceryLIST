@@ -29,6 +29,16 @@ public class FindRecipesByName extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_recipe_by_name);
 
+        query = (EditText) findViewById(R.id.query);
+        cuisine = (EditText) findViewById(R.id.cuisine);
+        diet = (EditText) findViewById(R.id.diet);
+        excludeIngredients = (EditText) findViewById(R.id.excludeIngredients);
+        intolerances = (EditText) findViewById(R.id.intolerances);
+        nameLimitLicense = (EditText) findViewById(R.id.nameLimitLicense);
+        nameNumber = (EditText) findViewById(R.id.nameNumber);
+        offset = (EditText) findViewById(R.id.offset);
+        type = (EditText) findViewById(R.id.type);
+
         Button nameRecipeButton = (Button) findViewById(R.id.nameRecipeButton);
         nameRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override

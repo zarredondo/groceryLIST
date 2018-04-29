@@ -10,21 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Ingredients i.e. apples,flour,sugar"
-        app:layout_constraintBottom_toTopOf="@+id/ingredient_limit_license"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/ingredient_limit_license"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Limit license i.e. True/False (optional)"
-        app:layout_constraintBottom_toTopOf="@+id/ingredient_number" />
+        app:layout_constraintTop_toBottomOf="@+id/ingredients" />
 
     <EditText
         android:id="@+id/ingredient_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Number of returned ingredients (optional)"
-        app:layout_constraintBottom_toTopOf="@+id/ingredient_ranking" />
+        app:layout_constraintTop_toBottomOf="@+id/ingredient_limit_license" />
 
     <EditText
         android:id="@+id/ingredient_ranking"
@@ -32,9 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="350dp"
         android:hint="(1) maximize used ingredients \n(2) minimize used ingredients"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/ingredient_number" />
 
     <Button
         android:id="@+id/ingredientRecipeButton"
