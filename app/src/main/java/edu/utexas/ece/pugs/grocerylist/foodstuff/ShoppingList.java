@@ -8,7 +8,7 @@ import java.util.Observer;
  * Created by zarredondo on 4/11/2018.
  */
 
-public class ShoppingList extends Observer {
+public class ShoppingList {
     private static ShoppingList uniqueInstance = new ShoppingList();
 
     private List<ShoppingListFoodItem> shoppingListFoodItems;
