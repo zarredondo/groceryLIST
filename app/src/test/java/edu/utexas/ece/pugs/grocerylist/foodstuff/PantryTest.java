@@ -7,9 +7,12 @@ import com.google.firebase.FirebaseApp;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import edu.utexas.ece.pugs.grocerylist.FirebaseLoader;
 import edu.utexas.ece.pugs.grocerylist.SynchronousFirebaseLoader;
@@ -59,11 +62,10 @@ public class PantryTest extends Application {
 
     @Before
     public void initialize() {
-        User.getInstance().getFirebaseReference().goOffline();
+        User.getInstance().setFirebaseEnable(false);
 
         User.getInstance().setTriplet("taYjUCOjrHUOcQbvoP208UDBZPu2",
                 "nathanbchin@utexas.edu", "huawei");
-        new SynchronousFirebaseLoader().execute();
         shoppingListFoodItem1 = new ShoppingListFoodItem("69", "original", "pineapple",
                 new Quantity(3, "oz", "oz", "ounces"), "hard",
                 "produce", "pineapple.jpg", new Date());
@@ -78,33 +80,31 @@ public class PantryTest extends Application {
         pantryItem1.addPurchase(newPurchase1);
 
         PantryItem pantryItem2 = new PantryItem();
-        pantryItem1.addPurchase(newPurchase2);
+        pantryItem2.addPurchase(newPurchase2);
 
         pantryItemMap = new HashMap<>();
         pantryItemMap.put("69", pantryItem1);
         pantryItemMap.put("420", pantryItem2);
+
+        Pantry.getInstance().addPurchase(newPurchase1);
+        Pantry.getInstance().addPurchase(newPurchase2);
     }
 
 
 
     @Test
     public void getPantryItems() throws Exception {
-        assertEquals(pantryItemMap, Pantry.getInstance().getPantryItems());
+        int N;
+        List<Purchase> purchaseList1, purchaseList2;
+        Purchase purchase1, purchase2;
+        Set<String> x = pantryItemMap.keySet();
+        for (String s : x) {
+            N =  pantryItemMap.get(s).getPurchases().size();
+            purchaseList1 = pantryItemMap.get(s).getPurchases();
+            purchaseList2 = Pantry.getInstance().getPantryItems().get(s).getPurchases();
+            assertEquals(purchaseList1, purchaseList2);
+        }
     }
-
-    /*@Test
-    public void getInstance() throws Exception {
-
-    }
-
-    @Test
-    public void setPantryItems() throws Exception {
-    }
-
-    @Test
-    public void addPurchase() throws Exception {
-    }*/
-
 }
 
 /*

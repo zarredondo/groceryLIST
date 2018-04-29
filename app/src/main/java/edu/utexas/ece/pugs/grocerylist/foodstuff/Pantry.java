@@ -44,6 +44,8 @@ public class Pantry {
             pantryItem.addPurchase(purchase);
             pantryItems.put(purchase.getId(), pantryItem);
         }
-        User.getInstance().getPantryReference().setValue(this.getPantryItems());
+        if (User.getInstance().getFirebaseEnable()) {
+            User.getInstance().getPantryReference().setValue(this.getPantryItems());
+        }
     }
 }
