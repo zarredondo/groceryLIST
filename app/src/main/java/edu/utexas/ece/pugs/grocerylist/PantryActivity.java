@@ -227,10 +227,11 @@ public class PantryActivity extends AppCompatActivity {
         TextView itemTextView = (TextView) parent.findViewById(R.id.item_title);
         final String item = String.valueOf(itemTextView.getText());
 
-        controller.createParseIngredientsAsync(item, 1, new APICallBack<DynamicResponse>() {
+        controller.createParseIngredientsAsync(item, 2, new APICallBack<DynamicResponse>() {
             @Override
             public void onSuccess(HttpContext context, DynamicResponse response) {
                 String key = "";
+                List<Purchase> value = new ArrayList<>();
                 try {
                     result = response.parse(ArrayList.class);
                 } catch (ParseException e) {
@@ -244,7 +245,43 @@ public class PantryActivity extends AppCompatActivity {
                     else{
                     }
                 }
+                //key = id
+                pan.removePurchase(key);
                 user.getPantryReference().child(key).removeValue();
+            }
+
+            @Override
+            public void onFailure(HttpContext context, Throwable error) {
+
+            }
+        });
+    }
+
+    public void updateItem(View view){
+        View  parent = (View)view.getParent();
+        TextView itemTextView = (TextView) parent.findViewById(R.id.item_title);
+        final String item = String.valueOf(itemTextView.getText());
+
+        controller.createParseIngredientsAsync(item, 2, new APICallBack<DynamicResponse>() {
+            @Override
+            public void onSuccess(HttpContext context, DynamicResponse response) {
+                String key = "";
+                List<Purchase> value = new ArrayList<>();
+                try {
+                    result = response.parse(ArrayList.class);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                for(Map.Entry<String, Object> entry: result.get(0).entrySet()) {
+                    if(entry.getKey() == "id") {
+                        key = entry.getValue().toString();
+                        System.out.println(key);
+                    }
+                    else{
+                    }
+                }
+                //key = id
+                pan.updatePurchase(key);
             }
 
             @Override
