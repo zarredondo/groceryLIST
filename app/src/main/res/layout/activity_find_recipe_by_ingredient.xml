@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditText
+        android:id="@+id/ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingredients i.e. apples,flour,sugar"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/ingredient_limit_license"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Limit license i.e. True/False (optional)"
+        app:layout_constraintTop_toBottomOf="@+id/ingredients" />
+
+    <EditText
+        android:id="@+id/ingredient_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Number of returned ingredients (optional)"
+        app:layout_constraintTop_toBottomOf="@+id/ingredient_limit_license" />
+
+    <EditText
+        android:id="@+id/ingredient_ranking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="350dp"
+        android:hint="(1) maximize used ingredients \n(2) minimize used ingredients"
+        app:layout_constraintTop_toBottomOf="@+id/ingredient_number" />
+
+    <Button
+        android:id="@+id/ingredientRecipeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Find Recipes By Ingredients"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="10dp"/>
+
+</android.support.constraint.ConstraintLayout>

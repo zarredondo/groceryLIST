@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mashape.p.spoonacularrecipefoodnutritionv1.Configuration;
+import com.mashape.p.spoonacularrecipefoodnutritionv1.SpoonacularAPIClient;
 
 import java.util.ArrayList;
 import java.util.List;

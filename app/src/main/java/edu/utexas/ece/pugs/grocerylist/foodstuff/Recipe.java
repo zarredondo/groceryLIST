@@ -8,36 +8,53 @@ import java.util.List;
  */
 
 public class Recipe {
-    private int image;
-    private String name;
-    private String percentage;
+    private String id;
+    private String title;
+    private String image;
     private String instructions;
-    private List<String> ingredients = new ArrayList<>();
+    private List<Ingredient> ingredients = new ArrayList<>();
 
-    public Recipe(String name, String percentage, String instructions, List<String> ingredients) {
-        this.name = name;
-        this.percentage = percentage;
-        this.instructions = instructions;
-        this.ingredients = ingredients;
+    public Recipe() {
+
     }
 
-    public int getImage() {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getImage() {
         return image;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getPercentage() {
-        return percentage;
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
     }
 
     public String getInstructions() {
         return instructions;
     }
 
-    public List<String> getIngredients() {
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 }

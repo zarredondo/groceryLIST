@@ -25,14 +25,20 @@
             android:name=".GroceryListActivity"
             android:label="@string/title_activity_grocery_list" />
         <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".RecipeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecipeActivity" />
-        <activity android:name=".RecipeDetailsActivity" />
+
+        <activity android:name=".RecipeDetailsActivity"></activity>
+        <activity android:name=".FindRecipesByIngredientsActivity"></activity>
+        <activity android:name=".FindRecipesByName"></activity>
+        <activity android:name=".FindRecipeByNutrientsActivity"></activity>
         <activity android:name=".StartActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".SignInActivity">
