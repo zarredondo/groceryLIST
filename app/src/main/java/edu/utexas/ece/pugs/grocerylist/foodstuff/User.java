@@ -1,5 +1,6 @@
 package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -13,11 +14,22 @@ public class User {
     private String userID;
     private String emailAddress;
     private String displayName;
+    private FirebaseAuth firebaseAuth;
     private DatabaseReference firebaseReference;
     private DatabaseReference pantryReference;
     private DatabaseReference shoppingListReference;
     private DatabaseReference nonFoodItemListReference;
     private DatabaseReference FoodItemListReference;
+    private DatabaseReference userReference;
+    private Boolean firebaseEnable;
+
+    public Boolean getFirebaseEnable() {
+        return firebaseEnable;
+    }
+
+    public void setFirebaseEnable(Boolean firebaseEnable) {
+        this.firebaseEnable = firebaseEnable;
+    }
 
     public static User getInstance() {
         return uniqueInstance;
@@ -31,7 +43,6 @@ public class User {
         this.emailAddress = emailAddress;
         this.displayName = displayName;
         this.updateDatabaseReferences();
-
     }
 
     public DatabaseReference getPantryReference() {
@@ -48,6 +59,10 @@ public class User {
 
     public DatabaseReference getFoodItemListReference() {
         return FoodItemListReference;
+    }
+
+    public DatabaseReference getFirebaseReference() {
+        return firebaseReference;
     }
 
     public String getUserID() {
@@ -75,11 +90,18 @@ public class User {
         this.displayName = displayName;
     }
 
+    public void addUserToDatabase() {
+        this.userReference.setValue(this.userID);
+    }
+
     private void updateDatabaseReferences() {
-        this.firebaseReference = FirebaseDatabase.getInstance().getReference();
-        this.pantryReference = firebaseReference.child("pantryMaps").child(userID);
-        this.shoppingListReference = firebaseReference.child("shoppingLists").child(userID);
-        this.nonFoodItemListReference = shoppingListReference.child("nonFoodItemList");
-        this.FoodItemListReference = shoppingListReference.child("foodItemList");
+        if (this.firebaseEnable) {
+            this.firebaseReference = FirebaseDatabase.getInstance().getReference();
+            this.pantryReference = firebaseReference.child("pantryMaps").child(userID);
+            this.shoppingListReference = firebaseReference.child("shoppingLists").child(userID);
+            this.nonFoodItemListReference = shoppingListReference.child("nonFoodItemList");
+            this.FoodItemListReference = shoppingListReference.child("foodItemList");
+            this.userReference = firebaseReference.child("users");
+        }
     }
 }

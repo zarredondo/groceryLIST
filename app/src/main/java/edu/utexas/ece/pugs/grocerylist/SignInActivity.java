@@ -115,10 +115,10 @@ public class SignInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Success", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent mainIntent = new Intent(SignInActivity.this, AddToPantryActivity.class);
+                            Intent mainIntent = new Intent(SignInActivity.this, PantryActivity.class);
 
                             User.getInstance().setTriplet(user.getUid(), user.getEmail(), user.getDisplayName());
-
+                            User.getInstance().addUserToDatabase();
                             new FirebaseLoader().execute(new String[]{});
 
                             startActivity(mainIntent);

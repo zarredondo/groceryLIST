@@ -9,7 +9,6 @@ import java.util.List;
 
 public class RecipeList {
     private static RecipeList uniqueInstance = new RecipeList();
-
     private List<Recipe> recipes;
 
     public static RecipeList getUniqueInstance() {
@@ -24,11 +23,11 @@ public class RecipeList {
         return uniqueInstance;
     }
 
-    public void setRecipes(List<Recipe> recipes) {
+    public void setRecipeList(List<Recipe> recipes) {
         this.recipes = recipes;
     }
 
-    public List<Recipe> getRecipes() {
+    public List<Recipe> getRecipeList() {
         return recipes;
     }
 }

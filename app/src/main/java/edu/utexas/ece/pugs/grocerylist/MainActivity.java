@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mashape.p.spoonacularrecipefoodnutritionv1.Configuration;
+import com.mashape.p.spoonacularrecipefoodnutritionv1.SpoonacularAPIClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             sendToStart();
 
         } else {
-
+            User.getInstance().setFirebaseEnable(true);
             User.getInstance().setTriplet(currentUser.getUid(), currentUser.getEmail(), currentUser.getDisplayName());
 
             User.getInstance().getPantryReference().addListenerForSingleValueEvent(new ValueEventListener() {
@@ -106,7 +108,11 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
+            Intent startIntent = new Intent(MainActivity.this, PantryActivity.class);
+            startActivity(startIntent);
+            finish();
         }
+
     }
 
     private void sendToStart() {

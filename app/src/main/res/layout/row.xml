@@ -26,4 +26,14 @@
         android:onClick="deleteItem"
         android:text="-" />
 
+    <!--<Button-->
+        <!--android:id="@+id/btnUpdate"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBottom="@+id/item_title"-->
+        <!--android:layout_toLeftOf="@+id/btnDelete"-->
+        <!--android:layout_toStartOf="@+id/btnDelete"-->
+        <!--android:onClick="updateItem"-->
+        <!--android:text="Update" />-->
+
 </RelativeLayout>
