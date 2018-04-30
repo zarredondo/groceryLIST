@@ -76,21 +76,18 @@ public class RecipeActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
                 case R.id.navigation_home:
                     item.setChecked(true);
                     Intent pantry = new Intent(getApplicationContext(), PantryActivity.class);// New activity
                     pantry.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(pantry);
-                    finish();
+                    break;
                 case R.id.navigation_dashboard:
                     item.setChecked(true);
                     Intent groceryList = new Intent(getApplicationContext(), GroceryListActivity.class);// New activity
                     groceryList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(groceryList);
-                    finish();
+                    break;
                 case R.id.navigation_notifications:
                     break;
             }

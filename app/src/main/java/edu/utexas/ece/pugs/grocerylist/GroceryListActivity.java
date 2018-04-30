@@ -1,5 +1,6 @@
 package edu.utexas.ece.pugs.grocerylist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -42,14 +43,19 @@ public class GroceryListActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
+                    item.setChecked(true);
+                    Intent pantry = new Intent(getApplicationContext(), PantryActivity.class);// New activity
+                    pantry.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(pantry);
+                    break;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
+                    return false;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
+                    item.setChecked(true);
+                    Intent recipe = new Intent(getApplicationContext(), RecipeActivity.class);// New activity
+                    recipe.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(recipe);
+                    break;
             }
             return false;
         }
@@ -62,9 +68,6 @@ public class GroceryListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grocery_list);
@@ -118,6 +121,8 @@ public class GroceryListActivity extends AppCompatActivity {
         });
 
         populateList();
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
 

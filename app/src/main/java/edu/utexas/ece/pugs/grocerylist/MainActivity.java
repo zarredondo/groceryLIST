@@ -61,13 +61,13 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        User.getInstance().setFirebaseEnable(true);
 
         if (currentUser == null) {
 
             sendToStart();
 
         } else {
-            User.getInstance().setFirebaseEnable(true);
             User.getInstance().setTriplet(currentUser.getUid(), currentUser.getEmail(), currentUser.getDisplayName());
 
             User.getInstance().getPantryReference().addListenerForSingleValueEvent(new ValueEventListener() {

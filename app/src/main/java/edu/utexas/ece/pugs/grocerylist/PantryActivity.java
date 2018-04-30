@@ -78,14 +78,12 @@ public class PantryActivity extends AppCompatActivity {
                     Intent groceryList = new Intent(getApplicationContext(), GroceryListActivity.class);// New activity
                     groceryList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(groceryList);
-                    finish();
                     return true;
                 case R.id.navigation_notifications:
                     item.setChecked(true);
                     Intent recipe = new Intent(getApplicationContext(), RecipeActivity.class);// New activity
                     recipe.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(recipe);
-                    finish();
                     return true;
             }
             return false;
