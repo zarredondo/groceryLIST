@@ -2,6 +2,7 @@ package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 /**
  * Created by zarredondo on 4/11/2018.

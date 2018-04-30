@@ -76,20 +76,23 @@ public class RecipeActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
+                case R.id.navigation_notifications:
+                    mTextMessage.setText(R.string.title_notifications);
+                    return true;
                 case R.id.navigation_home:
+                    item.setChecked(true);
                     Intent pantry = new Intent(getApplicationContext(), PantryActivity.class);// New activity
                     pantry.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(pantry);
                     finish();
-                    return true;
                 case R.id.navigation_dashboard:
-                    Intent groceryList = new Intent(getApplicationContext(), Activity.class);// New activity
+                    item.setChecked(true);
+                    Intent groceryList = new Intent(getApplicationContext(), GroceryListActivity.class);// New activity
                     groceryList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(groceryList);
                     finish();
-                    return true;
                 case R.id.navigation_notifications:
-                    return false;
+                    break;
             }
             return false;
         }
