@@ -68,7 +68,7 @@ public class PantryActivity extends BaseActivity {
     public Pantry pan;
     public User user;
 
-    LinearLayout dynamicContent,bottonNavBar;
+    LinearLayout dynamicContent, bottonNavBar;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -152,8 +152,8 @@ public class PantryActivity extends BaseActivity {
             }
         });
 
-//        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        //BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        //navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     private void showItemList(ArrayList<String> itemList){

@@ -55,7 +55,11 @@ public class BaseActivity extends AppCompatActivity {
                         startActivity(in);
                         overridePendingTransition(0, 0);
                         break;
-                    default:
+                    case R.id.settings:
+                        in = new Intent(getBaseContext(), RecipeActivity.class);
+                        startActivity(in);
+                        overridePendingTransition(0, 0);
+                        default:
                         break;
                 }
             }
