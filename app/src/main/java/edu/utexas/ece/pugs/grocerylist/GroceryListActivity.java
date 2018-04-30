@@ -8,7 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -54,7 +56,7 @@ public class GroceryListActivity extends AppCompatActivity {
     };
 
     private TextView mTextMessage;
-    private ListView groceryList;
+    private LinearLayout groceryList;
     private ShoppingList shoppingList = ShoppingList.getInstance();
     private ArrayAdapter<FoodItem> adapter;
 
@@ -113,7 +115,7 @@ public class GroceryListActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        })
+        });
 
         populateList();
     }
