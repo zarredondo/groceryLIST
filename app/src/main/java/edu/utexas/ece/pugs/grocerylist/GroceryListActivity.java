@@ -1,6 +1,7 @@
 package edu.utexas.ece.pugs.grocerylist;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -34,7 +37,7 @@ import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingList;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListFoodItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.User;
 
-public class GroceryListActivity extends AppCompatActivity {
+public class GroceryListActivity extends BaseActivity {
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -66,11 +69,29 @@ public class GroceryListActivity extends AppCompatActivity {
     private ShoppingList shoppingList = ShoppingList.getInstance();
     private ArrayAdapter<FoodItem> adapter;
 
+    LinearLayout dynamicContent,bottonNavBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grocery_list);
+        //setContentView(R.layout.activity_grocery_list);
+
+        dynamicContent = (LinearLayout)  findViewById(R.id.dynamicContent);
+        bottonNavBar= (LinearLayout) findViewById(R.id.bottonNavBar);
+        View wizard = getLayoutInflater().inflate(R.layout.activity_grocery_list, null);
+        dynamicContent.addView(wizard);
+
+
+        //get the reference of RadioGroup.
+
+        RadioGroup rg=(RadioGroup)findViewById(R.id.radioGroup1);
+        RadioButton rb=(RadioButton)findViewById(R.id.grocerylist);
+
+        // Change the corresponding icon and text color on nav button click.
+
+        rb.setCompoundDrawablesWithIntrinsicBounds( 0,R.drawable.ic_cart, 0,0);
+        rb.setTextColor(Color.parseColor("#3F51B5"));
 
         //Instantiation of APIController and APICallback response system
         final APIController controller = APIController.getInstance();
@@ -121,8 +142,8 @@ public class GroceryListActivity extends AppCompatActivity {
         });
 
         populateList();
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+//        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
 

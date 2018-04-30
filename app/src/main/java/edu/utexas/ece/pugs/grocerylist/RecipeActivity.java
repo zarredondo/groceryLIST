@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -27,7 +28,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 
@@ -57,12 +61,13 @@ import static edu.utexas.ece.pugs.grocerylist.RecipeActivity.State.PANTRY;
  * Created by Brandon on 3/16/2018.
  */
 
-public class RecipeActivity extends AppCompatActivity {
+public class RecipeActivity extends BaseActivity {
 
     protected enum State {
         PANTRY, INGREDIENTS, NAME, NUTRIENTS
     }
 
+    LinearLayout dynamicContent,bottonNavBar;
     State state = PANTRY;
     String xMashapeKey = "TyI4LJpGVLmshLMmIsnLipUE0L8gp1zPJjKjsn2dx6UOeb2N84";
     CustomAdapter customAdapter = new CustomAdapter();
@@ -89,6 +94,9 @@ public class RecipeActivity extends AppCompatActivity {
                     startActivity(groceryList);
                     break;
                 case R.id.navigation_notifications:
+                    break;
+                default:
+                    item.setChecked(true);
                     break;
             }
             return false;
@@ -129,7 +137,23 @@ public class RecipeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_list);
+        //setContentView(R.layout.activity_recipe_list);
+
+        dynamicContent = (LinearLayout)  findViewById(R.id.dynamicContent);
+        bottonNavBar= (LinearLayout) findViewById(R.id.bottonNavBar);
+        View wizard = getLayoutInflater().inflate(R.layout.activity_recipe_list, null);
+        dynamicContent.addView(wizard);
+
+
+        //get the reference of RadioGroup.
+
+        RadioGroup rg=(RadioGroup)findViewById(R.id.radioGroup1);
+        RadioButton rb=(RadioButton)findViewById(R.id.recipe);
+
+        // Change the corresponding icon and text color on nav button click.
+
+        rb.setCompoundDrawablesWithIntrinsicBounds( 0,R.drawable.ic_recipe, 0,0);
+        rb.setTextColor(Color.parseColor("#3F51B5"));
 
         com.mashape.p.spoonacularrecipefoodnutritionv1.Configuration.initialize(getApplicationContext());
         SpoonacularAPIClient client = new SpoonacularAPIClient();
@@ -138,8 +162,8 @@ public class RecipeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_app_bar);
         setSupportActionBar(toolbar);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+//        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

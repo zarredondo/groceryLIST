@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AutoCompleteTextView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -52,7 +55,7 @@ import edu.utexas.ece.pugs.grocerylist.foodstuff.Purchase;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Quantity;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.User;
 
-public class PantryActivity extends AppCompatActivity {
+public class PantryActivity extends BaseActivity {
 
     ArrayAdapter<String> adapter;
     ListView lstItems;
@@ -64,6 +67,8 @@ public class PantryActivity extends AppCompatActivity {
     public String item;
     public Pantry pan;
     public User user;
+
+    LinearLayout dynamicContent,bottonNavBar;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -85,6 +90,9 @@ public class PantryActivity extends AppCompatActivity {
                     recipe.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(recipe);
                     return true;
+                default:
+                    item.setChecked(true);
+                    break;
             }
             return false;
         }
@@ -96,7 +104,23 @@ public class PantryActivity extends AppCompatActivity {
         com.mashape.p.spoonacularrecipefoodnutritionv1.Configuration.initialize(this);
         client = new SpoonacularAPIClient();
         Configuration.setXMashapeKey(XMashapeKey);
-        setContentView(R.layout.activity_pantry);
+        //setContentView(R.layout.activity_pantry);
+
+        dynamicContent = (LinearLayout)  findViewById(R.id.dynamicContent);
+        bottonNavBar= (LinearLayout) findViewById(R.id.bottonNavBar);
+        View wizard = getLayoutInflater().inflate(R.layout.activity_pantry, null);
+        dynamicContent.addView(wizard);
+
+
+        //get the reference of RadioGroup.
+
+        RadioGroup rg=(RadioGroup)findViewById(R.id.radioGroup1);
+        RadioButton rb=(RadioButton)findViewById(R.id.pantry);
+
+        // Change the corresponding icon and text color on nav button click.
+
+        rb.setCompoundDrawablesWithIntrinsicBounds( 0,R.drawable.ic_pantry, 0,0);
+        rb.setTextColor(Color.parseColor("#3F51B5"));
 
         controller = client.getClient();
         lstItems = (ListView) findViewById(R.id.lstItems);
@@ -128,8 +152,8 @@ public class PantryActivity extends AppCompatActivity {
             }
         });
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+//        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     private void showItemList(ArrayList<String> itemList){
