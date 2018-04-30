@@ -7,4 +7,7 @@
 /build
 /captures
 .externalNativeBuild
+/SpoonacularAPILib/build/*
+SpoonacularAPILib/build/intermediates/incremental/packageDebugResources/merger.xml
 SpoonacularAPILib/build/*
+local.properties
