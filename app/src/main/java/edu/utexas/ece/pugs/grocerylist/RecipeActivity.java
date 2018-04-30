@@ -64,7 +64,6 @@ public class RecipeActivity extends AppCompatActivity {
     }
 
     State state = PANTRY;
-    private TextView mTextMessage;
     String xMashapeKey = "TyI4LJpGVLmshLMmIsnLipUE0L8gp1zPJjKjsn2dx6UOeb2N84";
     CustomAdapter customAdapter = new CustomAdapter();
     Map<String, PantryItem> pantryList = Pantry.getInstance().getPantryItems();
