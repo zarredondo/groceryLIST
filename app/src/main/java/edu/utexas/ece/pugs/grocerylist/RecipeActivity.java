@@ -77,6 +77,9 @@ public class RecipeActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
+                case R.id.navigation_notifications:
+                    mTextMessage.setText(R.string.title_notifications);
+                    return true;
                 case R.id.navigation_home:
                     Intent pantry = new Intent(getApplicationContext(), PantryActivity.class);// New activity
                     pantry.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
