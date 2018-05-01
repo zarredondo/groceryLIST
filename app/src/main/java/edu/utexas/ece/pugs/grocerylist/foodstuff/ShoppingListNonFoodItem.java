@@ -7,6 +7,22 @@ import java.util.Date;
  */
 
 public class ShoppingListNonFoodItem {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Quantity getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Quantity quantity) {
+        this.quantity = quantity;
+    }
+
     protected String name;
     protected Quantity quantity;
 
