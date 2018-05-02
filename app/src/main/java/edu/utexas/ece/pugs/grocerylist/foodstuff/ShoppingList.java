@@ -2,6 +2,7 @@ package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Observer;
 
 /**
@@ -11,18 +12,19 @@ import java.util.Observer;
 public class ShoppingList {
     private static ShoppingList uniqueInstance = new ShoppingList();
 
-    private List<ShoppingListFoodItem> shoppingListFoodItems;
-    private List<ShoppingListNonFoodItem> nonFoodItems;
+    private static List<ShoppingListFoodItem> shoppingListFoodItems;
+    private static List<ShoppingListNonFoodItem> nonFoodItems;
 
     private ShoppingList() {
         shoppingListFoodItems = new ArrayList<>();
         nonFoodItems = new ArrayList<>();
     }
 
-    public void addItem(FoodItem food){
-        ShoppingListFoodItem e = (ShoppingListFoodItem)food;
-        shoppingListFoodItems.add(e);
+    public void addItem(ShoppingListFoodItem food){
+        shoppingListFoodItems.add(food);
+        User.getInstance().getFoodItemListReference().setValue(shoppingListFoodItems);
     }
+
 
     public static void addItem(String name){
 
