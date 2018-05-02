@@ -36,4 +36,5 @@
     <!-- Strings related to GroceryList -->
     <string name="item_entry">Please enter an item.</string>
     <string name="settings">Settings</string>
+    <string name="sign_out">Sign Out</string>
 </resources>
