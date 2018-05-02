@@ -33,7 +33,7 @@ import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListFoodItem;
 public class RecipeDetailsActivity extends AppCompatActivity {
     List<Recipe> recipeList = RecipeList.getInstance().getRecipeList();
     Map<String, PantryItem> pantryItemMap = Pantry.getInstance().getPantryItems();
-    List<ShoppingListFoodItem> shoppingListFoodItems = ShoppingList.getInstance().getShoppingListFoodItems();
+    Map<String, ShoppingListFoodItem> shoppingListFoodItems = ShoppingList.getInstance().getFoodItems();
 
     ImageView recipeDetailsImage;
     TextView recipeDetailsName;
@@ -84,7 +84,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                         shoppingListFoodItem.setAddedDate(null);
                         shoppingListFoodItem.setPurchaseDate(null);
                         shoppingListFoodItem.setExpirationDate(null);
-                        shoppingListFoodItems.add(shoppingListFoodItem);
+                        shoppingListFoodItems.put(shoppingListFoodItem.getId(), shoppingListFoodItem);
                     }
                 }
             }

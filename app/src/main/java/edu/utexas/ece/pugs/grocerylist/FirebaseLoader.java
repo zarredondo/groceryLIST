@@ -47,11 +47,11 @@ public class FirebaseLoader extends AsyncTask<String, Integer, String> {
         User.getInstance().getFoodItemListReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<ShoppingListFoodItem> foodItems = (ArrayList<ShoppingListFoodItem>) dataSnapshot.getValue();
+                Map<String, ShoppingListFoodItem> foodItems = (HashMap<String, ShoppingListFoodItem>) dataSnapshot.getValue();
                 if (foodItems == null) {
-                    ShoppingList.getInstance().setShoppingListFoodItems(new ArrayList<ShoppingListFoodItem>());
+                    ShoppingList.getInstance().setFoodItems(new HashMap<String, ShoppingListFoodItem>());
                 } else {
-                    ShoppingList.getInstance().setShoppingListFoodItems(foodItems);
+                    ShoppingList.getInstance().setFoodItems(foodItems);
                 }
             }
 

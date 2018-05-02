@@ -1,7 +1,9 @@
 package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zarredondo on 4/11/2018.
@@ -10,33 +12,29 @@ import java.util.List;
 public class ShoppingList {
     private static ShoppingList uniqueInstance = new ShoppingList();
 
+    private Map<String, ShoppingListFoodItem> foodItems;
+
     private List<ShoppingListNonFoodItem> nonFoodItems;
-    private List<ShoppingListFoodItem> foodItems;
 
     private ShoppingList() {
 
         nonFoodItems = new ArrayList<>();
-        foodItems = new ArrayList<>();
+        foodItems = new HashMap<>();
     }
 
     public void addItem(ShoppingListFoodItem food){
-        if(!foodItems.contains(food)){
-            foodItems.add(food);
+        if(!foodItems.containsKey(food.getId())){
+            foodItems.put(food.getId(), food);
         }
         if (User.getInstance().getFirebaseEnable()) {
             User.getInstance().getFoodItemListReference().setValue(foodItems);
         }
     }
 
-    public int removeItem(String key){
-        int x = -1;
-        for(ShoppingListFoodItem m : foodItems){
-            if(m.getId().equals(key)) {
-                x = foodItems.indexOf(m);
-                foodItems.remove(m);
-            }
+    public void removeItem(String key){
+        if(foodItems.containsKey(key)){
+            foodItems.remove(key);
         }
-        return x;
     }
 
 
@@ -48,12 +46,12 @@ public class ShoppingList {
         return uniqueInstance;
     }
 
-    public List<ShoppingListFoodItem> getShoppingListFoodItems() {
+    public Map<String, ShoppingListFoodItem> getFoodItems() {
         return foodItems;
     }
 
-    public void setShoppingListFoodItems(List<ShoppingListFoodItem> shoppingListFoodItems) {
-        this.foodItems = shoppingListFoodItems;
+    public void setFoodItems(Map<String, ShoppingListFoodItem> foodItems) {
+        this.foodItems = foodItems;
     }
 
     public List<ShoppingListNonFoodItem> getNonFoodItems() {
