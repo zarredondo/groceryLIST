@@ -70,33 +70,6 @@ public class PantryActivity extends BaseActivity {
 
     LinearLayout dynamicContent, bottonNavBar;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    return false;
-                case R.id.navigation_dashboard:
-                    item.setChecked(true);
-                    Intent groceryList = new Intent(getApplicationContext(), GroceryListActivity.class);// New activity
-                    groceryList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(groceryList);
-                    return true;
-                case R.id.navigation_notifications:
-                    item.setChecked(true);
-                    Intent recipe = new Intent(getApplicationContext(), RecipeActivity.class);// New activity
-                    recipe.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(recipe);
-                    return true;
-                default:
-                    item.setChecked(true);
-                    break;
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
