@@ -14,7 +14,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+<<<<<<< HEAD
 import android.widget.CompoundButton;
+=======
+>>>>>>> manny
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -50,7 +53,9 @@ import java.util.Set;
 import edu.utexas.ece.pugs.grocerylist.SpoonacularControllers.DynamicCallBack;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.FoodItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Ingredient;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.PantryItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Purchase;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Quantity;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingList;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListFoodItem;
@@ -60,8 +65,6 @@ import edu.utexas.ece.pugs.grocerylist.foodstuff.User;
 public class GroceryListActivity extends BaseActivity {
 
 
-
-    private TextView mTextMessage;
     private ShoppingList shoppingList;
     private ArrayAdapter<String> adapter;
     private User user;
@@ -72,6 +75,12 @@ public class GroceryListActivity extends BaseActivity {
     public ListView lstGrocery;
     private LinearLayout dynamicContent;
     private LinearLayout bottonNavBar;
+    public ArrayList<String> listItem;
+    public ArrayList<CheckBox> checked;
+    public Pantry pan;
+    public String key;
+    public Map<String, ShoppingListFoodItem> itemMaps;
+    public String theKey;
 
 
     @Override
@@ -106,6 +115,10 @@ public class GroceryListActivity extends BaseActivity {
         controller = client.getClient();
 
         lstGrocery = (ListView) findViewById(R.id.lstGrocery);
+        listItem = new ArrayList<>();
+        checked = new ArrayList<>();
+        pan = Pantry.getInstance();
+        key = "";
 
 
         user = User.getInstance();
@@ -114,15 +127,28 @@ public class GroceryListActivity extends BaseActivity {
         user.getFoodItemListReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                itemMaps = new HashMap<String, ShoppingListFoodItem>();
                 ArrayList<String> grocery = new ArrayList<>();
-                ArrayList<ShoppingListFoodItem> itemList = new ArrayList<>();
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    HashMap<String, Object> item = (HashMap<String, Object>) ds.getValue();
-                    itemList.add(new ShoppingListFoodItem(item));
+                    ShoppingListFoodItem shop = ds.getValue(ShoppingListFoodItem.class);
+                    itemMaps.put(ds.getKey(), shop);
                 }
-                for(ShoppingListFoodItem it: itemList)
-                    grocery.add(it.getName());
+                ArrayList<ShoppingListFoodItem> values = new ArrayList<>(itemMaps.values());
+                for(ShoppingListFoodItem items : values){
+                    theKey = items.getName().toString();
+                    grocery.add(theKey);
+                }
+                Collections.sort(grocery);
                 showItemList(grocery);
+//
+//                ArrayList<String> grocery = new ArrayList<>();
+//                ArrayList<ShoppingListFoodItem> itemList = new ArrayList<>();
+//                for(DataSnapshot ds : dataSnapshot.getChildren()){
+//                    itemList.add(ds.getValue(ShoppingListFoodItem.class));
+//                }
+//                for(ShoppingListFoodItem it: itemList)
+//                    grocery.add(it.getName());
+//                showItemList(grocery);
             }
 
             @Override
@@ -196,8 +222,6 @@ public class GroceryListActivity extends BaseActivity {
             }
         });
 
-
-        //populateList();
     }
 
 
@@ -227,23 +251,124 @@ public class GroceryListActivity extends BaseActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    //--------------needs work---------------------------
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_add_item:
+            case R.id.purchased:
+                for(String s: listItem) {
+                    System.out.println(s);
+                    controller.createParseIngredientsAsync(s, 2, new APICallBack<DynamicResponse>() {
+                        @Override
+                        public void onSuccess(HttpContext context, DynamicResponse response) {
+                            try {
+                                result = response.parse(ArrayList.class);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            Purchase pur = new Purchase();
+                            Quantity quan = new Quantity();
+                            for(Map.Entry<String, Object> entry: result.get(0).entrySet()) {
+                                System.out.println(entry.getValue().toString());
+                                if(entry.getKey() == "id") {
+                                    pur.setId(entry.getValue().toString());
+                                    key = entry.getValue().toString();
+                                    shoppingList.removeItem(key);
+                                    user.getFoodItemListReference().child(key).removeValue();
+                                }
+                                else if(entry.getKey() == "original") {
+                                    pur.setOriginal(entry.getValue().toString());
+                                }else if(entry.getKey() == "name") {
+                                    pur.setName(entry.getValue().toString());
+                                }else if(entry.getKey() == "amount") {
+                                    quan.setAmount((int) Double.parseDouble(entry.getValue().toString()));
+                                }else if(entry.getKey() == "consistency") {
+                                    pur.setConsistency(entry.getValue().toString());
+                                }else if(entry.getKey() == "aisle") {
+                                    pur.setAisle(entry.getValue().toString());
+                                }else if(entry.getKey() == "image") {
+                                    pur.setImage(entry.getValue().toString());
+                                } else if(entry.getKey() == "unit") {
+                                    quan.setUnit(entry.getValue().toString());
+                                }else if(entry.getKey() == "unitShort") {
+                                    quan.setUnitShort(entry.getValue().toString());
+                                }else if(entry.getKey() == "unitLong") {
+                                    quan.setUnitLong(entry.getValue().toString());
+                                }
+                                else{
+                                }
+                            }
+                            pur.setExpirationDate(Calendar.getInstance().getTime());
+                            pur.setPurchaseDate(Calendar.getInstance().getTime());
+                            pur.setQuantity(quan);
+                            pan.addPurchase(pur);
+                            }
+
+                        @Override
+                        public void onFailure(HttpContext context, Throwable error) {
+
+                        }
+                    });
+                }
+                for(CheckBox c : checked){
+                    c.toggle();
+                }
+                checked.clear();
+                listItem.clear();
+
                 //TODO here goes the logic after selecting the checkboxes and buying your stuff,
                 // in other words, when you click the cart icon
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public boolean deleteGrocery(View view) {
+
+//-----------------------done-----------------------------
+    public void deleteGrocery(View view) {
         View parent = (View) view.getParent();
         TextView itemTextView = (TextView) parent.findViewById(R.id.grocery_title);
         final String item = String.valueOf(itemTextView.getText());
-        shoppingList = ShoppingList.getInstance();
-        if (shoppingList.contains(item))
-            shoppingList.removeItem(item);
-        return true;
+
+        controller.createParseIngredientsAsync(item, 1, new APICallBack<DynamicResponse>() {
+            @Override
+            public void onSuccess(HttpContext context, DynamicResponse response) {
+                String otherKey ="";
+                try {
+                    result = response.parse(ArrayList.class);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                for (Map.Entry<String, Object> map : result.get(0).entrySet()) {
+                    if(map.getKey() == "id") {
+                        otherKey = map.getValue().toString();
+                    }
+                }
+                shoppingList.removeItem(otherKey);
+                user.getFoodItemListReference().child(otherKey).removeValue();
+
+            }
+
+            @Override
+            public void onFailure(HttpContext context, Throwable error) {
+
+            }
+        });
+
     }
+    //---------------------work to be done-------------------------------
+    public void purchaseItem(View view){
+        View parent = (View) view.getParent();
+        TextView itemTextView = (TextView) parent.findViewById(R.id.grocery_title);
+        final String item = String.valueOf(itemTextView.getText());
+        if(((CheckBox) view).isChecked()){
+            listItem.add(item);
+            checked.add((CheckBox) view);
+        }
+        else if(listItem.contains(item)){
+            listItem.remove(item);
+            if(checked.contains((CheckBox) view))
+                checked.remove((CheckBox) view);
+        }
+    }
+
 }
