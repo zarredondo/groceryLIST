@@ -104,4 +104,16 @@ public class User {
             this.userReference = firebaseReference.child("users");
         }
     }
+
+    public void signOut() {
+        this.userID = null;
+        this.emailAddress = null;
+        this.displayName = null;
+        this.firebaseReference = null;
+        this.pantryReference = null;;
+        this.shoppingListReference = null;
+        this.nonFoodItemListReference = null;
+        this.FoodItemListReference = null;
+        this.userReference = null;
+    }
 }
