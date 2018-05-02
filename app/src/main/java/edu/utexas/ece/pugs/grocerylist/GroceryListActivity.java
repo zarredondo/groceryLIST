@@ -71,8 +71,8 @@ public class GroceryListActivity extends BaseActivity {
     public ArrayList<Map<String, Object>> result;
     public ArrayList<ShoppingListFoodItem> itemMap;
     public ListView lstGrocery;
-
-
+    private LinearLayout dynamicContent;
+    private LinearLayout bottonNavBar;
 
 
     @Override
@@ -85,7 +85,7 @@ public class GroceryListActivity extends BaseActivity {
         //setContentView(R.layout.activity_grocery_list);
 
         dynamicContent = (LinearLayout)  findViewById(R.id.dynamicContent);
-        bottonNavBar= (LinearLayout) findViewById(R.id.bottonNavBar);
+        bottonNavBar = (LinearLayout) findViewById(R.id.bottonNavBar);
         View wizard = getLayoutInflater().inflate(R.layout.activity_grocery_list, null);
         dynamicContent.addView(wizard);
 

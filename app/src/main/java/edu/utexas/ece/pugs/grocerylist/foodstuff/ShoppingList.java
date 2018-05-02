@@ -1,5 +1,9 @@
 package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +18,38 @@ public class ShoppingList {
     private List<ShoppingListFoodItem> foodItems;
 
     private ShoppingList() {
+        nonFoodItems = new ArrayList<ShoppingListNonFoodItem>();
+        foodItems = new ArrayList<ShoppingListFoodItem>();
 
-        nonFoodItems = new ArrayList<>();
-        foodItems = new ArrayList<>();
+        User.getInstance().getNonFoodItemListReference().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    ShoppingListNonFoodItem item = ds.getValue(ShoppingListNonFoodItem.class);
+                    nonFoodItems.add(item);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        User.getInstance().getFoodItemListReference().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    ShoppingListFoodItem item = ds.getValue(ShoppingListFoodItem.class);
+                    foodItems.add(item);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void addItem(ShoppingListFoodItem food){
@@ -34,6 +67,7 @@ public class ShoppingList {
             if(m.getId().equals(key)) {
                 x = foodItems.indexOf(m);
                 foodItems.remove(m);
+                User.getInstance().getFoodItemListReference().setValue(foodItems);
             }
         }
         return x;
