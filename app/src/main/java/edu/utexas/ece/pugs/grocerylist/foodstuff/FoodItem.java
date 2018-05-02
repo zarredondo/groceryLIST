@@ -21,17 +21,21 @@ public class FoodItem {
     }
 
     public FoodItem(Map<String, Object> itemEntry) {
-        this.id = (String)itemEntry.get("id");
-        this.name = (String)itemEntry.get("name");
-        this.original = (String)itemEntry.get("original");
-        this.quantity.setAmount((int)itemEntry.get("amount"));
+        quantity = new Quantity();
+        this.id = itemEntry.get("id").toString();
+        this.name = itemEntry.get("name").toString();
+        this.original = itemEntry.get("original").toString();
+        Object itemAmount = itemEntry.get("amount");
+        if (itemAmount != null){
+            this.quantity.setAmount((int)Double.parseDouble(itemAmount.toString()));
+        }
         if (itemEntry.containsKey("unit")){
-            this.quantity.setUnit((String)itemEntry.get("unit"));
+            this.quantity.setUnit(itemEntry.get("unit").toString());
         }
         else if (itemEntry.containsKey("unitLong")) {
-            this.quantity.setUnit((String)itemEntry.get("unitLong"));
+            this.quantity.setUnit(itemEntry.get("unitLong").toString());
         }
-        this.image = (String)itemEntry.get("image");
+        this.image = itemEntry.get("image").toString();
 
     }
 

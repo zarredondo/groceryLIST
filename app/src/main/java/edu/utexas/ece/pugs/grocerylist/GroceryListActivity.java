@@ -69,7 +69,6 @@ public class GroceryListActivity extends BaseActivity {
     SpoonacularAPIClient client;
     APIController controller;
     public ArrayList<Map<String, Object>> result;
-    public ArrayList<ShoppingListFoodItem> itemMap;
     public ListView lstGrocery;
     private LinearLayout dynamicContent;
     private LinearLayout bottonNavBar;
@@ -118,7 +117,8 @@ public class GroceryListActivity extends BaseActivity {
                 ArrayList<String> grocery = new ArrayList<>();
                 ArrayList<ShoppingListFoodItem> itemList = new ArrayList<>();
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    itemList.add(ds.getValue(ShoppingListFoodItem.class));
+                    HashMap<String, Object> item = (HashMap<String, Object>) ds.getValue();
+                    itemList.add(new ShoppingListFoodItem(item));
                 }
                 for(ShoppingListFoodItem it: itemList)
                     grocery.add(it.getName());
@@ -237,36 +237,13 @@ public class GroceryListActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void deleteGrocery(View view) {
+    public boolean deleteGrocery(View view) {
         View parent = (View) view.getParent();
         TextView itemTextView = (TextView) parent.findViewById(R.id.grocery_title);
         final String item = String.valueOf(itemTextView.getText());
-
-        controller.createParseIngredientsAsync(item, 1, new APICallBack<DynamicResponse>() {
-            @Override
-            public void onSuccess(HttpContext context, DynamicResponse response) {
-                String key ="";
-                try {
-                    result = response.parse(ArrayList.class);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                for (Map.Entry<String, Object> map : result.get(0).entrySet()) {
-                    if(map.getKey() == "id") {
-                        key = map.getValue().toString();
-                    }
-                }
-                int i = shoppingList.removeItem(key);
-                user.getFoodItemListReference().child(Integer.toString(i)).removeValue();
-
-            }
-
-            @Override
-            public void onFailure(HttpContext context, Throwable error) {
-
-            }
-        });
-
+        shoppingList = ShoppingList.getInstance();
+        if (shoppingList.contains(item))
+            shoppingList.removeItem(item);
+        return true;
     }
-
 }

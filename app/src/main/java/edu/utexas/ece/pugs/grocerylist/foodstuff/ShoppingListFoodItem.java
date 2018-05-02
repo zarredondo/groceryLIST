@@ -3,6 +3,7 @@ package edu.utexas.ece.pugs.grocerylist.foodstuff;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import edu.utexas.ece.pugs.grocerylist.foodstuff.FoodItem;
 
@@ -24,6 +25,12 @@ public class ShoppingListFoodItem extends FoodItem {
                                 String aisle, String image, Date expirationDate) {
         super(id, original, name, quantity, consistency, aisle, image);
         this.expirationDate = expirationDate;
+        this.addedDate = Calendar.getInstance().getTime();
+    }
+
+    public ShoppingListFoodItem(Map<String, Object> food){
+        super(food);
+        this.expirationDate = new Date();
         this.addedDate = Calendar.getInstance().getTime();
     }
 

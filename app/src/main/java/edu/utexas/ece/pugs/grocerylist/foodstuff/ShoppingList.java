@@ -5,6 +5,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -63,8 +64,10 @@ public class ShoppingList {
 
     public int removeItem(String key){
         int x = -1;
-        for(ShoppingListFoodItem m : foodItems){
-            if(m.getId().equals(key)) {
+        for(Object m : foodItems){
+            HashMap<String, Object> n = (HashMap<String, Object>) m;
+
+            if( key.compareTo( (String) n.get("name")) == 0) {
                 x = foodItems.indexOf(m);
                 foodItems.remove(m);
                 User.getInstance().getFoodItemListReference().setValue(foodItems);
@@ -98,5 +101,14 @@ public class ShoppingList {
         this.nonFoodItems = nonFoodItems;
     }
 
+    public boolean contains(String name){
+        for (int i = 0; i < foodItems.size(); i++){
+            Object e = foodItems.get(i);
+            HashMap<String, Object> f = (HashMap<String, Object>) e;
 
+            if (   name.compareTo((String)f.get("name"))  == 0  )
+                return true;
+        }
+        return false;
+    }
 }
