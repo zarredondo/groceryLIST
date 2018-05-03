@@ -21,11 +21,11 @@
         <activity
             android:name=".PantryActivity"
             android:label="@string/app_name"
-            android:theme="@style/PantryTheme"></activity>
+            android:theme="@style/PantryTheme" />
         <activity
             android:name=".GroceryListActivity"
             android:label="@string/title_activity_grocery_list"
-            android:theme="@style/PantryTheme"/>
+            android:theme="@style/PantryTheme" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,16 +33,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecipeActivity"></activity>
+        <activity android:name=".RecipeActivity" />
         <activity android:name=".RecipeDetailsActivity" />
         <activity android:name=".FindRecipesByIngredientsActivity" />
         <activity android:name=".FindRecipesByName" />
         <activity android:name=".FindRecipeByNutrientsActivity" />
         <activity android:name=".StartActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".SignInActivity"></activity>
-        <activity android:name=".AddToPantryActivity"></activity>
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".SignInActivity" />
+        <activity android:name=".AddToPantryActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".EditPurchaseActivity" />
+        <activity android:name=".AttributionActivity"></activity>
     </application>
 
 </manifest>

@@ -11,13 +11,22 @@
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
-        android:layout_marginTop="8dp"
+        android:background="@color/colorAccent"
         android:text="@string/sign_out"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/attribution_btn"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Credits and Attribution"
+        app:layout_constraintBottom_toTopOf="@+id/settings_sign_out_btn"
+        app:layout_constraintStart_toStartOf="@+id/settings_sign_out_btn"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.991"
-        android:background="@color/colorAccent"
-        android:textColor="@color/white"/>
+        app:layout_constraintVertical_bias="1.0" />
 </android.support.constraint.ConstraintLayout>

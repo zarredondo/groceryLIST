@@ -13,6 +13,7 @@ import edu.utexas.ece.pugs.grocerylist.foodstuff.User;
 public class SettingsActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     Button signOutButton;
+    Button attributionButton;
 
 
     @Override
@@ -27,7 +28,17 @@ public class SettingsActivity extends AppCompatActivity {
                 signOut();
             }
         });
+        attributionButton = (Button) findViewById(R.id.attribution_btn);
+        attributionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent attributionIntent = new Intent(SettingsActivity.this, AttributionActivity.class);
+                startActivity(attributionIntent);
+            }
+        });
     }
+
+
 
     void signOut() {
         mAuth.signOut();

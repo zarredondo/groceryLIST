@@ -37,4 +37,10 @@
     <string name="item_entry">Please enter an item.</string>
     <string name="settings">Settings</string>
     <string name="sign_out">Sign Out</string>
+    <string name="spoonacular_attribution">Spoonacular for access to their API to power our application.</string>
+    <string name="i_cons_attribution">i cons, US for the settings button icon</string>
+    <string name="suib_icon_attribution">suib icon for the recipe button icon</string>
+    <string name="adrien_coquet_attribution">Adrien Coquet, FR for the cart button icon</string>
+    <string name="star_and_anchor_design_attribution">Star and Anchor Design for the pantry button icon</string>
+    <string name="special_thanks_to">Special Thanks To:</string>
 </resources>
