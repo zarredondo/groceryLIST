@@ -67,6 +67,7 @@ public class PantryActivity extends BaseActivity {
     public String item;
     public Pantry pan;
     public User user;
+    private Drawable bckgrnd;
 
     LinearLayout dynamicContent, bottonNavBar;
 
@@ -124,6 +125,11 @@ public class PantryActivity extends BaseActivity {
 
             }
         });
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            bckgrnd = getDrawable(R.drawable.diet_food_fresh_background);
+            getWindow().setBackgroundDrawable(bckgrnd);
+        }
 
         //BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         //navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

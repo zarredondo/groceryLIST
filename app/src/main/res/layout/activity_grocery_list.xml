@@ -5,35 +5,13 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!--android:background="@drawable/grocery_activity_background"-->
-
-    <TextView
-        android:id="@+id/Title"
-        android:layout_width="222dp"
-        android:layout_height="36dp"
-        android:layout_marginEnd="146dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:background="@android:drawable/screen_background_dark_transparent"
-        android:fontFamily="sans-serif"
-        android:gravity="start"
-        android:text="@string/title_activity_grocery_list"
-        android:textAlignment="viewStart"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:typeface="sans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/addItemButton"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="10dp"
         android:text="+"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,16 +22,17 @@
         android:layout_height="44dp"
         android:layout_marginEnd="64dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:background="@android:drawable/edit_text"
         android:ems="10"
         android:inputType="textPersonName"
+        android:selectAllOnFocus="false"
         android:textColor="@color/common_google_signin_btn_text_light_focused"
         android:textSize="14sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Title"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/item_entry" />
 
     <android.support.constraint.Guideline
@@ -67,9 +46,10 @@
         android:id="@+id/lstGrocery"
         android:layout_width="wrap_content"
         android:layout_height="672dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/common_google_signin_btn_text_dark_disabled"
         app:layout_constraintTop_toBottomOf="@+id/addItemText"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-105dp" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <!--<android.support.design.widget.BottomNavigationView-->
     <!--android:id="@+id/navigation"-->

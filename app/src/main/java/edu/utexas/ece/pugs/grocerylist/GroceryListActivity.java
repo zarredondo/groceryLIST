@@ -1,16 +1,20 @@
 package edu.utexas.ece.pugs.grocerylist;
 
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -76,6 +80,7 @@ public class GroceryListActivity extends BaseActivity {
     public String key;
     public Map<String, ShoppingListFoodItem> itemMaps;
     public String theKey;
+    private Drawable bckgrnd;
 
 
     @Override
@@ -157,6 +162,7 @@ public class GroceryListActivity extends BaseActivity {
 
         final Button addItemButton = findViewById(R.id.addItemButton);
 
+
         addItemButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final TextView item = findViewById(R.id.addItemText);
@@ -220,6 +226,11 @@ public class GroceryListActivity extends BaseActivity {
             }
         });
 
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            bckgrnd = getDrawable(R.drawable.diet_food_fresh_background);
+            getWindow().setBackgroundDrawable(bckgrnd);
+        }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
 
