@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#095002</color>
     <color name="colorAccent">#283ad6</color>
     <color name="ListFragmentColor">#94ffffff</color>
+    <color name="white">#FFFFFF</color>
 </resources>
