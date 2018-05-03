@@ -87,7 +87,6 @@ public class GroceryListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        shoppingList = ShoppingList.getInstance();
 
         super.onCreate(savedInstanceState);
         com.mashape.p.spoonacularrecipefoodnutritionv1.Configuration.initialize(this);
