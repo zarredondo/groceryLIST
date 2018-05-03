@@ -21,7 +21,9 @@
         <activity
             android:name=".PantryActivity"
             android:label="@string/title_pantry"
-            android:theme="@style/PantryTheme"></activity>
+            android:theme="@style/PantryTheme">
+
+        </activity>
         <activity
             android:name=".GroceryListActivity"
             android:label="@string/title_activity_grocery_list"

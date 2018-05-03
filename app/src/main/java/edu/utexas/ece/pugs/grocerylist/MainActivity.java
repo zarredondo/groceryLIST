@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-            Intent startIntent = new Intent(MainActivity.this, PantryActivity.class);
+            Intent startIntent = new Intent(MainActivity.this, GroceryListActivity.class);
             startActivity(startIntent);
             finish();
         }

@@ -167,7 +167,7 @@ public class GroceryListActivity extends BaseActivity {
             public void onClick(View v) {
                 final TextView item = findViewById(R.id.addItemText);
                 final String name = String.valueOf(item.getText());
-                item.setText("");
+                item.clearComposingText();
 
                 controller.createParseIngredientsAsync(name, 1, new APICallBack<DynamicResponse>() {
                     @Override
@@ -214,6 +214,7 @@ public class GroceryListActivity extends BaseActivity {
                             notFood.setName(name);
                             Quantity quans = new Quantity(1, "", "", "" );
                             notFood.setQuantity(quans);
+                            shoppingList.addItem(notFood);
                         }
                     }
 
