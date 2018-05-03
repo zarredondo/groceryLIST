@@ -35,13 +35,17 @@ public class ShoppingList {
     }
 
     public void addItem(ShoppingListNonFoodItem nonFood){
-        for(int i = 0; i < nonFoodItems.size(); i++){
-            if (nonFoodItems.get(i).getName().compareTo(nonFood.getName()) != 0){
-                nonFoodItems.add(nonFood);
+        int containsFlag = 0;
+        for(int i = 0; i < nonFoodItems.size(); i++) {
+            if (nonFoodItems.get(i).getName().compareTo(nonFood.getName()) == 0) {
+                containsFlag = 1;
             }
-            if (User.getInstance().getFirebaseEnable()) {
-                User.getInstance().getNonFoodItemListReference().setValue(nonFoodItems);
-            }
+        }
+        if (containsFlag == 0){
+            nonFoodItems.add(nonFood);
+        }
+        if (User.getInstance().getFirebaseEnable()) {
+            User.getInstance().getNonFoodItemListReference().setValue(nonFoodItems);
         }
     }
 
