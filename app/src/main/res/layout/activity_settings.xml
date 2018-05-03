@@ -18,5 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.991"
-        android:background="#FFFFCC"/>
+        android:background="@color/colorAccent"
+        android:textColor="@color/white"/>
 </android.support.constraint.ConstraintLayout>

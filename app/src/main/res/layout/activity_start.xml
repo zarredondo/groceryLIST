@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/start_welcome_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/welcome_to_grocerylist"
@@ -22,21 +22,25 @@
     <Button
         android:id="@+id/start_reg_btn"
         android:layout_width="368dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:background="@color/colorAccent"
         android:text="@string/i_need_new_account"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/start_sign_in_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/start_welcome_textview"
+        app:layout_constraintVertical_bias="1.0" />/>
 
     <Button
         android:id="@+id/start_sign_in_btn"
         android:layout_width="368dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginBottom="52dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
         android:text="@string/sign_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

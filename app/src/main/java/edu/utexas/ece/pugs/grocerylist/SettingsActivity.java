@@ -32,7 +32,7 @@ public class SettingsActivity extends AppCompatActivity {
     void signOut() {
         mAuth.signOut();
         User.getInstance().signOut();
-        Intent startIntent = new Intent(SettingsActivity.this, SignInActivity.class);
+        Intent startIntent = new Intent(SettingsActivity.this, MainActivity.class);
         startActivity(startIntent);
         finish();
 
