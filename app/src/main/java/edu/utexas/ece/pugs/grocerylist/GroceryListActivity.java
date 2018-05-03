@@ -79,6 +79,7 @@ public class GroceryListActivity extends BaseActivity {
     public Pantry pan;
     public String key;
     public Map<String, ShoppingListFoodItem> itemMaps;
+    private List<ShoppingListNonFoodItem> itemList;
     public String theKey;
     private Drawable bckgrnd;
 
@@ -133,8 +134,8 @@ public class GroceryListActivity extends BaseActivity {
                 itemMaps = new HashMap<String, ShoppingListFoodItem>();
                 ArrayList<String> grocery = new ArrayList<>();
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    ShoppingListFoodItem shop = ds.getValue(ShoppingListFoodItem.class);
-                    itemMaps.put(ds.getKey(), shop);
+                    ShoppingListFoodItem listFoodItem = ds.getValue(ShoppingListFoodItem.class);
+                    itemMaps.put(ds.getKey(), listFoodItem);
                 }
                 ArrayList<ShoppingListFoodItem> values = new ArrayList<>(itemMaps.values());
                 for(ShoppingListFoodItem items : values){
@@ -160,14 +161,31 @@ public class GroceryListActivity extends BaseActivity {
             }
         });
 
-        final Button addItemButton = findViewById(R.id.addItemButton);
 
+        user.getNonFoodItemListReference().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                itemList = new ArrayList<ShoppingListNonFoodItem>();
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    ShoppingListNonFoodItem listNonFoodItem = ds.getValue(ShoppingListNonFoodItem.class);
+                    itemList.add(listNonFoodItem);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        final Button addItemButton = findViewById(R.id.addItemButton);
 
         addItemButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final TextView item = findViewById(R.id.addItemText);
                 final String name = String.valueOf(item.getText());
-                item.setText("");
+                item.clearComposingText();
 
                 controller.createParseIngredientsAsync(name, 1, new APICallBack<DynamicResponse>() {
                     @Override
@@ -214,6 +232,7 @@ public class GroceryListActivity extends BaseActivity {
                             notFood.setName(name);
                             Quantity quans = new Quantity(1, "", "", "" );
                             notFood.setQuantity(quans);
+                            shoppingList.addItem(notFood);
                         }
                     }
 

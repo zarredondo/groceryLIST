@@ -34,16 +34,23 @@ public class ShoppingList {
         }
     }
 
+    public void addItem(ShoppingListNonFoodItem nonFood){
+        for(int i = 0; i < nonFoodItems.size(); i++){
+            if (nonFoodItems.get(i).getName().compareTo(nonFood.getName()) != 0){
+                nonFoodItems.add(nonFood);
+            }
+            if (User.getInstance().getFirebaseEnable()) {
+                User.getInstance().getNonFoodItemListReference().setValue(nonFoodItems);
+            }
+        }
+    }
+
     public void removeItem(String key){
         if(foodItems.containsKey(key)){
             foodItems.remove(key);
         }
     }
 
-
-    public static void addItem(String name){
-
-    }
 
     public static ShoppingList getInstance() {
         return uniqueInstance;

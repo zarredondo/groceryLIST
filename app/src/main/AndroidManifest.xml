@@ -21,7 +21,9 @@
         <activity
             android:name=".PantryActivity"
             android:label="@string/title_pantry"
-            android:theme="@style/PantryTheme"></activity>
+            android:theme="@style/PantryTheme">
+
+        </activity>
         <activity
             android:name=".GroceryListActivity"
             android:label="@string/title_activity_grocery_list"
@@ -33,8 +35,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecipeActivity"></activity>
-        <activity android:name=".RecipeDetailsActivity" />
+        <activity
+            android:name=".RecipeActivity"
+            android:label="@string/title_activity_recipes"/>
+        <activity
+            android:name=".RecipeDetailsActivity"
+            android:label="@string/title_activity_recipes"/>
         <activity android:name=".FindRecipesByIngredientsActivity" />
         <activity android:name=".FindRecipesByName" />
         <activity android:name=".FindRecipeByNutrientsActivity" />

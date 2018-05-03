@@ -6,6 +6,7 @@
     <string name="title_pantry">My Pantry</string>
     <string name="title_activity_grocery_list">My Grocery List</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_recipes">Something to Eat</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
