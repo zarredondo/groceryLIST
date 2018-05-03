@@ -25,7 +25,10 @@ public class FoodItem {
         this.id = itemEntry.get("id").toString();
         this.name = itemEntry.get("name").toString();
         this.original = itemEntry.get("original").toString();
-        this.quantity.setAmount((int)Double.parseDouble(itemEntry.get("amount").toString()));
+        Object itemAmount = itemEntry.get("amount");
+        if (itemAmount != null){
+            this.quantity.setAmount((int)Double.parseDouble(itemAmount.toString()));
+        }
         if (itemEntry.containsKey("unit")){
             this.quantity.setUnit(itemEntry.get("unit").toString());
         }

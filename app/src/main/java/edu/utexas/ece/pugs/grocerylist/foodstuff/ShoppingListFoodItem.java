@@ -28,7 +28,6 @@ public class ShoppingListFoodItem extends FoodItem {
         this.addedDate = Calendar.getInstance().getTime();
     }
 
-
     public ShoppingListFoodItem(Map<String, Object> food){
         super(food);
         this.expirationDate = new Date();

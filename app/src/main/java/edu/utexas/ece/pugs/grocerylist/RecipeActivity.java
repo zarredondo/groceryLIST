@@ -68,6 +68,7 @@ public class RecipeActivity extends BaseActivity {
     }
 
     LinearLayout dynamicContent,bottonNavBar;
+    PantryItem pantry_item;
     State state = PANTRY;
     String xMashapeKey = "TyI4LJpGVLmshLMmIsnLipUE0L8gp1zPJjKjsn2dx6UOeb2N84";
     CustomAdapter customAdapter = new CustomAdapter();
@@ -165,6 +166,7 @@ public class RecipeActivity extends BaseActivity {
 //        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 //        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        //findByPantryRecipes(getPantryIngredients());
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -189,18 +191,7 @@ public class RecipeActivity extends BaseActivity {
         switch(item.getItemId()) {
             case R.id.findRecipesByPantry:
                 state = PANTRY;
-                String ingredients = null;
-                for (String pantryItem : pantryList.keySet()) {
-                    PantryItem pantry_item = pantryList.get(pantryItem);
-                    Purchase purchase = pantry_item.getPurchases().get(0);
-                    if (ingredients == null) {
-                        ingredients = purchase.getName();
-                    }
-                    else {
-                        ingredients = ingredients + "," + purchase.getName();
-                    }
-                }
-                findByPantryRecipes(ingredients);
+                //findByPantryRecipes(getPantryIngredients());
                 break;
             case R.id.findRecipesByIngredients:
                 state = INGREDIENTS;
@@ -525,5 +516,19 @@ public class RecipeActivity extends BaseActivity {
             });
         }
     }
+
+//    public String getPantryIngredients() {
+//        ArrayList<PantryItem> pan = new ArrayList<>(pantryList.values());
+//        String name = null;
+//        for(PantryItem item : pan){
+//            if (name == null) {
+//                name = name + item.getItemName();
+//            }
+//            else {
+//                name = name + "," + item.getItemName();
+//            }
+//        }
+//        return name;
+//    }
 
 }

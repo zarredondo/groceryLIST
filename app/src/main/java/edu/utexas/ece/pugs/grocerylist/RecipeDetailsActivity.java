@@ -13,10 +13,14 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.utexas.ece.pugs.grocerylist.foodstuff.FoodItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Ingredient;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Pantry;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.PantryItem;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Purchase;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.Quantity;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Recipe;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.RecipeList;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingList;
@@ -28,7 +32,8 @@ import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListFoodItem;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
     List<Recipe> recipeList = RecipeList.getInstance().getRecipeList();
-    List<ShoppingListFoodItem> shoppingListFoodItems = ShoppingList.getInstance().getShoppingListFoodItems();
+    Map<String, PantryItem> pantryItemMap = Pantry.getInstance().getPantryItems();
+    Map<String, ShoppingListFoodItem> shoppingListFoodItems = ShoppingList.getInstance().getFoodItems();
 
     ImageView recipeDetailsImage;
     TextView recipeDetailsName;
@@ -60,18 +65,27 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 for (Ingredient ingredient : recipeList.get(index).getIngredients()) {
-                    ShoppingListFoodItem shoppingListFoodItem = new ShoppingListFoodItem();
-                    shoppingListFoodItem.setId(ingredient.getId());
-                    shoppingListFoodItem.setAisle(ingredient.getAisle());
-                    shoppingListFoodItem.setImage(ingredient.getImage());
-                    shoppingListFoodItem.setName(ingredient.getName());
-                    shoppingListFoodItem.setConsistency(ingredient.getConsistency());
-                    shoppingListFoodItem.setOriginal(ingredient.getOriginal());
-                    shoppingListFoodItem.setQuantity(ingredient.getQuantity());
-                    shoppingListFoodItem.setAddedDate(null);
-                    shoppingListFoodItem.setPurchaseDate(null);
-                    shoppingListFoodItem.setExpirationDate(null);
-                    shoppingListFoodItems.add(shoppingListFoodItem);
+                    PantryItem pantryItem = pantryItemMap.get(ingredient.getId());
+                    int quantityHolder = 0;
+                    for (Purchase purchase : pantryItem.getPurchases()) {
+                        quantityHolder = quantityHolder + purchase.getQuantity().getAmount();
+                    }
+                    if (quantityHolder < ingredient.getQuantity().getAmount()) {
+                        ShoppingListFoodItem shoppingListFoodItem = new ShoppingListFoodItem();
+                        shoppingListFoodItem.setId(ingredient.getId());
+                        shoppingListFoodItem.setAisle(ingredient.getAisle());
+                        shoppingListFoodItem.setImage(ingredient.getImage());
+                        shoppingListFoodItem.setName(ingredient.getName());
+                        shoppingListFoodItem.setConsistency(ingredient.getConsistency());
+                        shoppingListFoodItem.setOriginal(ingredient.getOriginal());
+                        Quantity quantity = ingredient.getQuantity();
+                        quantity.setAmount(quantityHolder - ingredient.getQuantity().getAmount());
+                        shoppingListFoodItem.setQuantity(quantity);
+                        shoppingListFoodItem.setAddedDate(null);
+                        shoppingListFoodItem.setPurchaseDate(null);
+                        shoppingListFoodItem.setExpirationDate(null);
+                        shoppingListFoodItems.put(shoppingListFoodItem.getId(), shoppingListFoodItem);
+                    }
                 }
             }
         });

@@ -84,8 +84,10 @@ public class MainActivity extends AppCompatActivity {
 
             User.getInstance().getFoodItemListReference().addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    ShoppingList.getInstance().setShoppingListFoodItems((List<ShoppingListFoodItem>) dataSnapshot.getValue());
+                public void onDataChange(DataSnapshot dataSnapshot) {Map<String, ShoppingListFoodItem> shoppingListFoodItems = (Map<String, ShoppingListFoodItem>) dataSnapshot.getValue();
+                    if (shoppingListFoodItems != null) {
+                        ShoppingList.getInstance().setFoodItems(shoppingListFoodItems);
+                    }
                 }
 
                 @Override

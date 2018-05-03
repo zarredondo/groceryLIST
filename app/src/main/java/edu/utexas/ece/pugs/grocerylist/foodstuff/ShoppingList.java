@@ -1,9 +1,13 @@
 package edu.utexas.ece.pugs.grocerylist.foodstuff;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Observer;
 
 /**
  * Created by zarredondo on 4/11/2018.
@@ -12,17 +16,28 @@ import java.util.Observer;
 public class ShoppingList {
     private static ShoppingList uniqueInstance = new ShoppingList();
 
-    private static List<ShoppingListFoodItem> shoppingListFoodItems;
-    private static List<ShoppingListNonFoodItem> nonFoodItems;
+    private Map<String, ShoppingListFoodItem> foodItems;
+
+    private List<ShoppingListNonFoodItem> nonFoodItems;
 
     private ShoppingList() {
-        shoppingListFoodItems = new ArrayList<>();
         nonFoodItems = new ArrayList<>();
+        foodItems = new HashMap<>();
     }
 
     public void addItem(ShoppingListFoodItem food){
-        shoppingListFoodItems.add(food);
-        User.getInstance().getFoodItemListReference().setValue(shoppingListFoodItems);
+        if(!foodItems.containsKey(food.getId())){
+            foodItems.put(food.getId(), food);
+        }
+        if (User.getInstance().getFirebaseEnable()) {
+            User.getInstance().getFoodItemListReference().setValue(foodItems);
+        }
+    }
+
+    public void removeItem(String key){
+        if(foodItems.containsKey(key)){
+            foodItems.remove(key);
+        }
     }
 
 
@@ -34,12 +49,12 @@ public class ShoppingList {
         return uniqueInstance;
     }
 
-    public List<ShoppingListFoodItem> getShoppingListFoodItems() {
-        return shoppingListFoodItems;
+    public Map<String, ShoppingListFoodItem> getFoodItems() {
+        return foodItems;
     }
 
-    public void setShoppingListFoodItems(List<ShoppingListFoodItem> shoppingListFoodItems) {
-        this.shoppingListFoodItems = shoppingListFoodItems;
+    public void setFoodItems(Map<String, ShoppingListFoodItem> foodItems) {
+        this.foodItems = foodItems;
     }
 
     public List<ShoppingListNonFoodItem> getNonFoodItems() {
@@ -49,6 +64,5 @@ public class ShoppingList {
     public void setNonFoodItems(List<ShoppingListNonFoodItem> nonFoodItems) {
         this.nonFoodItems = nonFoodItems;
     }
-
 
 }
