@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:backgroundTint="@android:color/holo_red_dark"
         android:onClick="deleteItem"
         android:text="-" />
 
