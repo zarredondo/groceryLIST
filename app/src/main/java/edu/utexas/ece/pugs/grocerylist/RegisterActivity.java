@@ -78,16 +78,6 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-        if (item.getItemId() == R.id.main_logout_btn) {
-            mAuth.signOut();
-            sendToStart();
-        }
-        return true;
-    }
-
     private void registerUser(final String displayName, final String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
