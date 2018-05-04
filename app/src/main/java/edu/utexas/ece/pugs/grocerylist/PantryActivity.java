@@ -96,6 +96,9 @@ public class PantryActivity extends BaseActivity {
         rb.setCompoundDrawablesWithIntrinsicBounds( 0,R.drawable.ic_pantry, 0,0);
         rb.setTextColor(Color.parseColor("#3F51B5"));
 
+
+        Configuration.initialize(getApplicationContext());
+
         controller = client.getClient();
         lstItems = (ListView) findViewById(R.id.lstItems);
 
@@ -131,8 +134,6 @@ public class PantryActivity extends BaseActivity {
             getWindow().setBackgroundDrawable(bckgrnd);
         }
 
-        //BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        //navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     private void showItemList(ArrayList<String> itemList){
