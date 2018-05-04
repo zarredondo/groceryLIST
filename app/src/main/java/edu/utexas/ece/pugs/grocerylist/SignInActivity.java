@@ -95,16 +95,6 @@ public class SignInActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-        if (item.getItemId() == R.id.main_logout_btn) {
-            mAuth.signOut();
-            sendToStart();
-        }
-        return true;
-    }
-
     private void signInUser(String email, String password) {
 
         mAuth.signInWithEmailAndPassword(email, password)

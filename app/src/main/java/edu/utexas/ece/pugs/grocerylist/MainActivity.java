@@ -133,18 +133,4 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-
-        if (item.getItemId() == R.id.main_logout_btn) {
-
-            mAuth.signOut();
-            sendToStart();
-
-        }
-
-        return true;
-    }
 }
