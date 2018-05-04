@@ -49,7 +49,6 @@
         <activity android:name=".RegisterActivity" />
 
         <activity android:name=".SignInActivity" />
-        <activity android:name=".AddToPantryActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".EditPurchaseActivity" />
         <activity android:name=".AttributionActivity"></activity>

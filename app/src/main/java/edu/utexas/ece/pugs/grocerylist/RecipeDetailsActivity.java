@@ -10,8 +10,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +30,7 @@ import edu.utexas.ece.pugs.grocerylist.foodstuff.Recipe;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.RecipeList;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingList;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListFoodItem;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.User;
 
 /**
  * Created by Brandon on 3/17/2018.
@@ -32,13 +38,18 @@ import edu.utexas.ece.pugs.grocerylist.foodstuff.ShoppingListFoodItem;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
     List<Recipe> recipeList = RecipeList.getInstance().getRecipeList();
-    Map<String, PantryItem> pantryItemMap = Pantry.getInstance().getPantryItems();
-    Map<String, ShoppingListFoodItem> shoppingListFoodItems = ShoppingList.getInstance().getFoodItems();
+    Map<String, PantryItem> itemMap;
+    Map<String, ShoppingListFoodItem> shoppingListFoodItems;
+    ArrayList<PantryItem> pantryList;
 
     ImageView recipeDetailsImage;
     TextView recipeDetailsName;
     TextView recipeDetailsIngredients;
     TextView recipeDetailsInstructions;
+
+    private String item;
+    private String ingredients;
+    private User user;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -49,6 +60,38 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         recipeDetailsName = (TextView) findViewById(R.id.recipeDetailsName);
         recipeDetailsIngredients = (TextView) findViewById(R.id.recipeDetailsIngredients);
         recipeDetailsInstructions = (TextView) findViewById(R.id.recipeDetailsInstructions);
+
+        shoppingListFoodItems = ShoppingList.getInstance().getFoodItems();
+
+        user = User.getInstance();
+        user.getPantryReference().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ingredients = "";
+                itemMap = new HashMap<String, PantryItem>();
+                ArrayList<String> itemList = new ArrayList<>();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    PantryItem pan = ds.getValue(PantryItem.class);
+                    itemMap.put(ds.getKey(), pan);
+                }
+                ArrayList<PantryItem> values = new ArrayList<>(itemMap.values());
+                pantryList = values;
+                for (PantryItem items : values) {
+                    item = items.getItemName();
+                    if (ingredients.isEmpty()) {
+                        ingredients = ingredients + item;
+                    }
+                    else {
+                        ingredients = ingredients + "," + item;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         Intent intent = getIntent();
         final int index = intent.getIntExtra("recipe_index", 0);
@@ -65,10 +108,13 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 for (Ingredient ingredient : recipeList.get(index).getIngredients()) {
-                    PantryItem pantryItem = pantryItemMap.get(ingredient.getId());
                     int quantityHolder = 0;
-                    for (Purchase purchase : pantryItem.getPurchases()) {
-                        quantityHolder = quantityHolder + purchase.getQuantity().getAmount();
+                    for (PantryItem pantryItem : pantryList) {
+                        if (pantryItem.getId().equals(ingredient.getId())) {
+                            for (Purchase purchase : pantryItem.getPurchases()) {
+                                quantityHolder = quantityHolder + purchase.getQuantity().getAmount();
+                            }
+                        }
                     }
                     if (quantityHolder < ingredient.getQuantity().getAmount()) {
                         ShoppingListFoodItem shoppingListFoodItem = new ShoppingListFoodItem();
@@ -79,12 +125,12 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                         shoppingListFoodItem.setConsistency(ingredient.getConsistency());
                         shoppingListFoodItem.setOriginal(ingredient.getOriginal());
                         Quantity quantity = ingredient.getQuantity();
-                        quantity.setAmount(quantityHolder - ingredient.getQuantity().getAmount());
+                        quantity.setAmount(ingredient.getQuantity().getAmount() - quantityHolder);
                         shoppingListFoodItem.setQuantity(quantity);
                         shoppingListFoodItem.setAddedDate(null);
                         shoppingListFoodItem.setPurchaseDate(null);
                         shoppingListFoodItem.setExpirationDate(null);
-                        shoppingListFoodItems.put(shoppingListFoodItem.getId(), shoppingListFoodItem);
+                        ShoppingList.getInstance().addItem(shoppingListFoodItem);
                     }
                 }
             }

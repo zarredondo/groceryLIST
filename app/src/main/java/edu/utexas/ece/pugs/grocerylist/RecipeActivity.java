@@ -17,9 +17,11 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 
+import java.io.ObjectStreamException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +37,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.mashape.p.spoonacularrecipefoodnutritionv1.Configuration;
 import com.mashape.p.spoonacularrecipefoodnutritionv1.SpoonacularAPIClient;
 import com.mashape.p.spoonacularrecipefoodnutritionv1.controllers.APIController;
@@ -51,6 +56,7 @@ import edu.utexas.ece.pugs.grocerylist.foodstuff.Purchase;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Quantity;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.Recipe;
 import edu.utexas.ece.pugs.grocerylist.foodstuff.RecipeList;
+import edu.utexas.ece.pugs.grocerylist.foodstuff.User;
 
 import static edu.utexas.ece.pugs.grocerylist.RecipeActivity.State.INGREDIENTS;
 import static edu.utexas.ece.pugs.grocerylist.RecipeActivity.State.NAME;
@@ -68,41 +74,16 @@ public class RecipeActivity extends BaseActivity {
     }
 
     LinearLayout dynamicContent,bottonNavBar;
-    PantryItem pantry_item;
-    State state = PANTRY;
+    State state;
     String xMashapeKey = "TyI4LJpGVLmshLMmIsnLipUE0L8gp1zPJjKjsn2dx6UOeb2N84";
     CustomAdapter customAdapter = new CustomAdapter();
-    Map<String, PantryItem> pantryList = Pantry.getInstance().getPantryItems();
+    Map<String, PantryItem> itemMap;
     APIController apiController = APIController.getInstance();
     List<Recipe> recipeList = RecipeList.getInstance().getRecipeList();
+    private String item;
+    private String ingredients;
+    private User user;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    item.setChecked(true);
-                    Intent pantry = new Intent(getApplicationContext(), PantryActivity.class);// New activity
-                    pantry.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(pantry);
-                    break;
-                case R.id.navigation_dashboard:
-                    item.setChecked(true);
-                    Intent groceryList = new Intent(getApplicationContext(), GroceryListActivity.class);// New activity
-                    groceryList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(groceryList);
-                    break;
-                case R.id.navigation_notifications:
-                    break;
-                default:
-                    item.setChecked(true);
-                    break;
-            }
-            return false;
-        }
-    };
 
     public class CustomAdapter extends BaseAdapter {
 
@@ -140,11 +121,12 @@ public class RecipeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_recipe_list);
 
+        itemMap = Pantry.getInstance().getPantryItems();
+
         dynamicContent = (LinearLayout)  findViewById(R.id.dynamicContent);
         bottonNavBar= (LinearLayout) findViewById(R.id.bottonNavBar);
         View wizard = getLayoutInflater().inflate(R.layout.activity_recipe_list, null);
         dynamicContent.addView(wizard);
-
 
         //get the reference of RadioGroup.
 
@@ -156,17 +138,43 @@ public class RecipeActivity extends BaseActivity {
         rb.setCompoundDrawablesWithIntrinsicBounds( 0,R.drawable.ic_recipe, 0,0);
         rb.setTextColor(Color.parseColor("#3F51B5"));
 
-        com.mashape.p.spoonacularrecipefoodnutritionv1.Configuration.initialize(getApplicationContext());
+        Configuration.initialize(getApplicationContext());
         SpoonacularAPIClient client = new SpoonacularAPIClient();
         Configuration.setXMashapeKey(xMashapeKey);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_app_bar);
         setSupportActionBar(toolbar);
 
-//        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        user = User.getInstance();
+        user.getPantryReference().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ingredients = "";
+                itemMap = new HashMap<String, PantryItem>();
+                ArrayList<String> itemList = new ArrayList<>();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    PantryItem pan = ds.getValue(PantryItem.class);
+                    itemMap.put(ds.getKey(), pan);
+                }
+                ArrayList<PantryItem> values = new ArrayList<>(itemMap.values());
+                for (PantryItem items : values) {
+                    item = items.getItemName();
+                    if (ingredients.isEmpty()) {
+                        ingredients = ingredients + item;
+                    }
+                    else {
+                        ingredients = ingredients + "," + item;
+                    }
+                }
+            }
 
-        //findByPantryRecipes(getPantryIngredients());
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -177,6 +185,7 @@ public class RecipeActivity extends BaseActivity {
             }
         });
         listView.setAdapter(customAdapter);
+        findByPantryRecipes(ingredients);
     }
 
     @Override
@@ -191,7 +200,7 @@ public class RecipeActivity extends BaseActivity {
         switch(item.getItemId()) {
             case R.id.findRecipesByPantry:
                 state = PANTRY;
-                //findByPantryRecipes(getPantryIngredients());
+                findByPantryRecipes(ingredients);
                 break;
             case R.id.findRecipesByIngredients:
                 state = INGREDIENTS;
@@ -516,19 +525,5 @@ public class RecipeActivity extends BaseActivity {
             });
         }
     }
-
-//    public String getPantryIngredients() {
-//        ArrayList<PantryItem> pan = new ArrayList<>(pantryList.values());
-//        String name = null;
-//        for(PantryItem item : pan){
-//            if (name == null) {
-//                name = name + item.getItemName();
-//            }
-//            else {
-//                name = name + "," + item.getItemName();
-//            }
-//        }
-//        return name;
-//    }
 
 }
