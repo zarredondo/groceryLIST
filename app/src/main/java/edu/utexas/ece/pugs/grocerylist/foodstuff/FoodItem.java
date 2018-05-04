@@ -89,7 +89,6 @@ public class FoodItem {
         this.consistency = consistency;
     }
 
-
     public String getAisle() {
         return aisle;
     }

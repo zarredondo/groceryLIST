@@ -23,19 +23,19 @@ public class User {
     private DatabaseReference userReference;
     private Boolean firebaseEnable;
 
-    public Boolean getFirebaseEnable() {
-        return firebaseEnable;
-    }
-
-    public void setFirebaseEnable(Boolean firebaseEnable) {
-        this.firebaseEnable = firebaseEnable;
+    private User() {
     }
 
     public static User getInstance() {
         return uniqueInstance;
     }
 
-    private User() {
+    public Boolean getFirebaseEnable() {
+        return firebaseEnable;
+    }
+
+    public void setFirebaseEnable(Boolean firebaseEnable) {
+        this.firebaseEnable = firebaseEnable;
     }
 
     public void setTriplet(String userID, String emailAddress, String displayName) {

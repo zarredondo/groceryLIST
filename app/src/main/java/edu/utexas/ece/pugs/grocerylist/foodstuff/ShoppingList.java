@@ -20,6 +20,10 @@ public class ShoppingList {
 
     private List<ShoppingListNonFoodItem> nonFoodItems;
 
+    public static ShoppingList getInstance() {
+        return uniqueInstance;
+    }
+
     private ShoppingList() {
         nonFoodItems = new ArrayList<>();
         foodItems = new HashMap<>();
@@ -53,11 +57,6 @@ public class ShoppingList {
         if(foodItems.containsKey(key)){
             foodItems.remove(key);
         }
-    }
-
-
-    public static ShoppingList getInstance() {
-        return uniqueInstance;
     }
 
     public Map<String, ShoppingListFoodItem> getFoodItems() {
