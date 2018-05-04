@@ -5,4 +5,5 @@
     <color name="colorAccent">#283ad6</color>
     <color name="ListFragmentColor">#94ffffff</color>
     <color name="white">#FFFFFF</color>
+    <color name="PantryListFragmentColor">#c6ffffff</color>
 </resources>
