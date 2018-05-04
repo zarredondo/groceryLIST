@@ -167,7 +167,7 @@ public class RecipeActivity extends BaseActivity {
                         ingredients = ingredients + "," + item;
                     }
                 }
-                findByPantryRecipes(ingredients);
+                //findByPantryRecipes(ingredients);
             }
 
             @Override
@@ -189,7 +189,7 @@ public class RecipeActivity extends BaseActivity {
         listView.setAdapter(customAdapter);
 
         ImageView bgImageView = (ImageView) findViewById(R.id.recipeListBgImage);
-        bgImageView.setBackgroundResource(R.drawable.diet_food_fresh_background);
+        bgImageView.setBackgroundResource(R.drawable.background_recipes);
     }
 
     @Override
