@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="350dp"
-        android:hint="(1) maximize used ingredients \n(2) minimize used ingredients"
+        android:hint="Choice 1: (1) maximize used ingredients \nChoice 2: (2) minimize used ingredients \n(optional)"
         app:layout_constraintTop_toBottomOf="@+id/ingredient_number" />
 
     <Button
