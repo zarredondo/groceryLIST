@@ -1,9 +1,11 @@
 package edu.utexas.ece.pugs.grocerylist;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import java.util.List;
 public class StartActivity extends AppCompatActivity {
     private Button mRegBtn;
     private Button mSignInBtn;
+    private Drawable bckgrnd;
     String xMashapeKey = "groceryLIST";
 
     @Override
@@ -44,9 +47,15 @@ public class StartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent signInIntent = new Intent(StartActivity.this, SignInActivity.class);
                 startActivity(signInIntent);
+                finish();
             }
         });
 
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            bckgrnd = getDrawable(R.drawable.login_background);
+            getWindow().setBackgroundDrawable(bckgrnd);
+        }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
 
     }

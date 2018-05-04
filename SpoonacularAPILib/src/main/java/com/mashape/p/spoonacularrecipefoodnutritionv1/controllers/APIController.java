@@ -1690,10 +1690,10 @@ public class APIController extends BaseController {
             private static final long serialVersionUID = 5131701348003201032L;
             {
                     put( "query", query );
-                    put( "cuisine", (null != cuisine) ? cuisine : "italian" );
-                    put( "diet", (null != diet) ? diet : "vegetarian" );
-                    put( "excludeIngredients", (null != excludeIngredients) ? excludeIngredients : "coconut" );
-                    put( "intolerances", (null != intolerances) ? intolerances : "egg, gluten" );
+                    put( "cuisine", (null != cuisine) ? cuisine : "" );
+                    put( "diet", (null != diet) ? diet : "" );
+                    put( "excludeIngredients", (null != excludeIngredients) ? excludeIngredients : "" );
+                    put( "intolerances", (null != intolerances) ? intolerances : "" );
                     put( "limitLicense", (null != limitLicense) ? limitLicense : false );
                     put( "number", (null != number) ? number : 10 );
                     put( "offset", (null != offset) ? offset : 0 );

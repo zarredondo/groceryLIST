@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -130,9 +131,10 @@ public class PantryActivity extends BaseActivity {
         });
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            bckgrnd = getDrawable(R.drawable.diet_food_fresh_background);
+            bckgrnd = getDrawable(R.drawable.pantry_background);
             getWindow().setBackgroundDrawable(bckgrnd);
         }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
     }
 

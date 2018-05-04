@@ -9,8 +9,8 @@
         android:id="@+id/query"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Natural Language of the Recipe"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:hint="Name (spaghetti, sushi, etc.)"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/cuisine"

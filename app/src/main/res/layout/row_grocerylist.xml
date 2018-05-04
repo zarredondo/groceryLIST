@@ -20,12 +20,13 @@
 
     <Button
         android:id="@+id/grocery_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:backgroundTint="@android:color/holo_red_dark"
         android:onClick="deleteGrocery"
+        android:textColor="@color/white"
         android:text="-" />
 
     <CheckBox
