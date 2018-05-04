@@ -42,6 +42,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     Map<String, ShoppingListFoodItem> shoppingListFoodItems;
     ArrayList<PantryItem> pantryList;
 
+    ImageView bgImageView;
     ImageView recipeDetailsImage;
     TextView recipeDetailsName;
     TextView recipeDetailsIngredients;
@@ -55,6 +56,9 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
+
+        bgImageView = (ImageView) findViewById(R.id.recipeListDetailsBgImage);
+        bgImageView.setBackgroundResource(R.drawable.diet_food_fresh_background);
 
         recipeDetailsImage = (ImageView) findViewById(R.id.recipeDetailsImage);
         recipeDetailsName = (TextView) findViewById(R.id.recipeDetailsName);

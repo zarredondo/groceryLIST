@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -166,6 +167,7 @@ public class RecipeActivity extends BaseActivity {
                         ingredients = ingredients + "," + item;
                     }
                 }
+                findByPantryRecipes(ingredients);
             }
 
             @Override
@@ -185,7 +187,9 @@ public class RecipeActivity extends BaseActivity {
             }
         });
         listView.setAdapter(customAdapter);
-        findByPantryRecipes(ingredients);
+
+        ImageView bgImageView = (ImageView) findViewById(R.id.recipeListBgImage);
+        bgImageView.setBackgroundResource(R.drawable.diet_food_fresh_background);
     }
 
     @Override
