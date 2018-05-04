@@ -115,5 +115,9 @@ public class User {
         this.nonFoodItemListReference = null;
         this.FoodItemListReference = null;
         this.userReference = null;
+        Pantry.getInstance().getPantryItems().clear();
+        ShoppingList.getInstance().getFoodItems().clear();
+        ShoppingList.getInstance().getNonFoodItems().clear();
+        RecipeList.getInstance().getRecipeList().clear();
     }
 }
