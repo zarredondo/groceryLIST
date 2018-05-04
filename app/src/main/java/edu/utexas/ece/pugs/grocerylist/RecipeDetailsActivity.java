@@ -1,6 +1,7 @@
 package edu.utexas.ece.pugs.grocerylist;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -36,7 +40,7 @@ import edu.utexas.ece.pugs.grocerylist.foodstuff.User;
  * Created by Brandon on 3/17/2018.
  */
 
-public class RecipeDetailsActivity extends AppCompatActivity {
+public class RecipeDetailsActivity extends BaseActivity {
     List<Recipe> recipeList = RecipeList.getInstance().getRecipeList();
     Map<String, PantryItem> itemMap;
     Map<String, ShoppingListFoodItem> shoppingListFoodItems;
@@ -48,6 +52,9 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     TextView recipeDetailsIngredients;
     TextView recipeDetailsInstructions;
 
+    LinearLayout dynamicContent, bottonNavBar;
+
+
     private String item;
     private String ingredients;
     private User user;
@@ -55,7 +62,22 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_details);
+        //setContentView(R.layout.activity_recipe_details);
+
+        dynamicContent = (LinearLayout)  findViewById(R.id.dynamicContent);
+        bottonNavBar= (LinearLayout) findViewById(R.id.bottonNavBar);
+        View wizard = getLayoutInflater().inflate(R.layout.activity_recipe_details, null);
+        dynamicContent.addView(wizard);
+
+        //get the reference of RadioGroup.
+
+        RadioGroup rg=(RadioGroup)findViewById(R.id.radioGroup1);
+        RadioButton rb=(RadioButton)findViewById(R.id.recipe);
+
+        // Change the corresponding icon and text color on nav button click.
+
+        rb.setCompoundDrawablesWithIntrinsicBounds( 0, R.drawable.ic_recipe, 0,0);
+        rb.setTextColor(Color.parseColor("#3F51B5"));
 
         bgImageView = (ImageView) findViewById(R.id.recipeListDetailsBgImage);
         bgImageView.setBackgroundResource(R.drawable.diet_food_fresh_background);
