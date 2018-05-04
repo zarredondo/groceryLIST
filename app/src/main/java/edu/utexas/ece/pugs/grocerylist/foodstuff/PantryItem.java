@@ -41,4 +41,12 @@ public class PantryItem {
         }
     }
 
+    public String getId() {
+        if (!purchases.isEmpty()) {
+            return purchases.get(0).getId();
+        } else {
+            return "";
+        }
+    }
+
 }

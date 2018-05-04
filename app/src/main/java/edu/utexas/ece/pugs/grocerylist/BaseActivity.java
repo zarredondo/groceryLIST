@@ -42,15 +42,11 @@ public class BaseActivity extends AppCompatActivity {
                         break;
                     case R.id.grocerylist:
                         Log.i("matching", "matching inside1 watchlistAdapter" + checkedId);
-
                         in = new Intent(getBaseContext(), GroceryListActivity.class);
                         startActivity(in);
-                        overridePendingTransition(0, 0);
-
                         break;
                     case R.id.recipe:
                         Log.i("matching", "matching inside1 rate" + checkedId);
-
                         in = new Intent(getBaseContext(), RecipeActivity.class);
                         startActivity(in);
                         overridePendingTransition(0, 0);
