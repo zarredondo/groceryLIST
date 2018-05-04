@@ -11,8 +11,11 @@
         android:alpha="0.25" />
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize"
+        app:layout_constraintBottom_toTopOf="@+id/navigation">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
