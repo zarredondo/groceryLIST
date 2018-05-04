@@ -167,7 +167,7 @@ public class RecipeActivity extends BaseActivity {
                         ingredients = ingredients + "," + item;
                     }
                 }
-                //findByPantryRecipes(ingredients);
+                findByPantryRecipes(ingredients);
             }
 
             @Override
