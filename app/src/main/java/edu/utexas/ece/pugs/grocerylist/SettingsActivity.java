@@ -17,7 +17,6 @@ import edu.utexas.ece.pugs.grocerylist.foodstuff.User;
 public class SettingsActivity extends BaseActivity {
     FirebaseAuth mAuth;
     Button signOutButton;
-    Button attributionButton;
     private LinearLayout dynamicContent;
     private LinearLayout bottonNavBar;
 
@@ -49,15 +48,6 @@ public class SettingsActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 signOut();
-            }
-        });
-        attributionButton = (Button) findViewById(R.id.attribution_btn);
-        attributionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent attributionIntent = new Intent(SettingsActivity.this, AttributionActivity.class);
-                startActivity(attributionIntent);
-
             }
         });
     }
