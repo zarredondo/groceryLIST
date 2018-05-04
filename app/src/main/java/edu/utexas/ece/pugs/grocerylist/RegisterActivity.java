@@ -71,12 +71,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
 
     private void registerUser(final String displayName, final String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)

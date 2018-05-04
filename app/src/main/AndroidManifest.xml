@@ -50,7 +50,6 @@
 
         <activity android:name=".SignInActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".EditPurchaseActivity" />
     </application>
 
 </manifest>
